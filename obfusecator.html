@@ -293,7 +293,7 @@ body {
 
       <div class="code-box">
         <div class="code-header">
-          <span class="code-title" style="color:var(--accent)">Compiled Output</span>
+          <span class="code-title" style="color:var(--accent)">Obfusecation Output</span>
           <div class="code-actions">
             <button class="btn-sm" onclick="copyOutput()">COPY</button>
             <button class="btn-sm" onclick="downloadOutput()">EXPORT</button>
@@ -304,7 +304,7 @@ body {
     </div>
 
     <div class="controls-bar">
-      <button class="btn-primary" onclick="startObfuscation()">⚡ Compile Source</button>
+      <button class="btn-primary" onclick="startObfuscation()">⚡Obfusecate Source</button>
       <button class="btn-secondary" onclick="resetAll()">Reset Workspace</button>
       <div class="status-text" id="status-msg">System initialized. Awaiting input.</div>
     </div>
@@ -585,10 +585,10 @@ function execute(raw, s, t0) {
     document.getElementById('m-ratio').innerText = ratio + "x";
     document.getElementById('m-time').innerText = timeMs + "ms";
 
-    showStatus(`Compilation successful! Added ${newLines - originalLines} extra lines.`, "success");
+    showStatus(`Obfusecation successful! Added ${newLines - originalLines} extra lines.`, "success");
     showToast("Obfuscation completed natively!");
   } catch(e) {
-    showStatus("Compiler Exception: " + e.message, "error");
+    showStatus("Obfusecator Exception: " + e.message, "error");
   }
 }
 
