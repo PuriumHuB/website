@@ -366,8 +366,8 @@ body {
     <div class="obf-container">
         <div class="obf-header">
           <div class="obf-brand">
-            <h1>TryHard Core V3.0</h1>
-            <p>FOGGY ENGINE INTEGRATED // STABLE BUILD</p>
+            <h1>TryHard Core V1.0</h1>
+            <p>TryHard ENGINE INTEGRATED // STABLE BUILD</p>
           </div>
           <div class="obf-tabs">
             <button class="obf-tab-btn active" id="obf-tab-text" onclick="obfSwitchMode('text')">Text Input</button>
@@ -378,10 +378,10 @@ body {
         <div class="obf-workspace">
           <div class="obf-sidebar">
             <div class="obf-panel">
-              <div class="obf-panel-header">TryHard & Foggy Modules</div>
+              <div class="obf-panel-header">TryHard Modules</div>
               
               <label class="obf-setting">
-                <div class="obf-set-info"><h3>Math Array Strings <span class="obf-badge">FOGGY</span></h3><p>Decrypts string via ASCII division</p></div>
+                <div class="obf-set-info"><h3>Math Array Strings <span class="obf-badge">TryHard</span></h3><p>Decrypts string via ASCII division</p></div>
                 <label class="obf-toggle"><input type="checkbox" id="obf-s1" checked><span class="obf-slider"></span></label>
               </label>
 
@@ -391,12 +391,12 @@ body {
               </label>
 
               <label class="obf-setting">
-                <div class="obf-set-info"><h3>Emoji Junk Inject <span class="obf-badge">FOGGY</span></h3><p>Injects safe valid emoji strings</p></div>
+                <div class="obf-set-info"><h3>Emoji Junk Inject <span class="obf-badge">TryHard</span></h3><p>Injects safe valid emoji strings</p></div>
                 <label class="obf-toggle"><input type="checkbox" id="obf-s3" checked><span class="obf-slider"></span></label>
               </label>
 
               <label class="obf-setting">
-                <div class="obf-set-info"><h3>Lorem Ipsum Bloat <span class="obf-badge">FOGGY</span></h3><p>Spams massive variable blocks</p></div>
+                <div class="obf-set-info"><h3>Lorem Ipsum Bloat <span class="obf-badge">TryHard</span></h3><p>Spams massive variable blocks</p></div>
                 <label class="obf-toggle"><input type="checkbox" id="obf-s4" checked><span class="obf-slider"></span></label>
               </label>
 
@@ -471,7 +471,7 @@ body {
 <div class="obf-loader" id="obfLoader">
   <div class="obf-loader-box">
     <h3 style="color:#f5f5f5; margin-bottom:10px;">Building Pipeline</h3>
-    <p id="obf-loader-msg" style="color:#a3a3a3; font-size:12px;">Integrating Foggy Engine...</p>
+    <p id="obf-loader-msg" style="color:#a3a3a3; font-size:12px;">Integrating TryHard Engine...</p>
     <div class="obf-bar-bg"><div class="obf-bar-fill" id="obf-loader-bar"></div></div>
     <span id="obf-loader-pct" style="color:#f5f5f5; font-family:'Fira Code'; font-size:14px; font-weight:bold;">0%</span>
   </div>
@@ -561,7 +561,7 @@ function obfDownloadOutput() {
 }
 
 // ==========================================
-// 4. TRYHARD x FOGGY CORE ENGINE
+// 4. TRYHARD x TryHard CORE ENGINE
 // ==========================================
 const rand = (min, max) => Math.floor(Math.random() * (max - min + 1)) + min;
 const randHex = (n) => [...Array(n)].map(() => '0123456789abcdef'[rand(0, 15)]).join('');
@@ -641,7 +641,7 @@ function obfStart() {
   const overlay = document.getElementById('obfLoader');
   overlay.classList.add('active');
   
-  const steps = [ ["Injecting Anti-Tamper...", 15], ["Encrypting Math Arrays...", 40], ["Injecting Foggy Bloat...", 70], ["Mutating Variables...", 90], ["Finalizing build...", 100] ];
+  const steps = [ ["Injecting Anti-Tamper...", 15], ["Encrypting Math Arrays...", 40], ["Injecting TryHard Bloat...", 70], ["Mutating Variables...", 90], ["Finalizing build...", 100] ];
   let stepIdx = 0; const t0 = performance.now();
 
   function nextStep() {
@@ -657,7 +657,7 @@ function obfStart() {
 function obfExecute(raw, s, t0) {
   try {
     let code = stripComments(raw); let originalLines = code.split('\n').length;
-    code = `-- Protected by TryHard Core V3 (Foggy Engine)\n` + code;
+    code = `-- Protected by TryHard Core V1.0\n` + code;
     
     if (s('obf-s5')) code = injectNotification(code);
     if (s('obf-s1')) code = encryptStrings(code);
