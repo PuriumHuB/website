@@ -1,509 +1,1216 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Purium - Script Execution Platform</title>
-<style>
-  :root {
-    --pur:#7d52de;--pur-dim:rgba(125,82,222,0.16);--pur-border:rgba(125,82,222,0.42);
-    --blu:#1e7ccd;--blu-dim:rgba(30,124,205,0.16);--blu-border:rgba(30,124,205,0.42);
-    --grn:#2ec871;--grn-dim:rgba(46,200,113,0.14);--grn-border:rgba(46,200,113,0.38);
-    --amb:#f5a623;--amb-dim:rgba(245,166,35,0.14);--amb-border:rgba(245,166,35,0.38);
-    --card:rgba(14,14,20,0.85);--nav:rgba(10,10,16,0.92);
-    --glass:rgba(255,255,255,0.05);--gb:rgba(255,255,255,0.09);
-  }
-  *{box-sizing:border-box;margin:0;padding:0;}
-  html,body{min-height:100%;font-family:'Segoe UI',system-ui,sans-serif;
-    background:linear-gradient(135deg,#080810 0%,#0d0a1c 45%,#080e18 100%);
-    color:#e0e0ef;overflow-x:hidden;}
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Purium - Script Execution Platform</title>
+    <style>
+        :root {
+            --pur: #7d52de;
+            --pur-dim: rgba(125, 82, 222, 0.16);
+            --pur-border: rgba(125, 82, 222, 0.42);
+            --blu: #1e7ccd;
+            --blu-dim: rgba(30, 124, 205, 0.16);
+            --blu-border: rgba(30, 124, 205, 0.42);
+            --grn: #2ec871;
+            --grn-dim: rgba(46, 200, 113, 0.14);
+            --grn-border: rgba(46, 200, 113, 0.38);
+            --amb: #f5a623;
+            --amb-dim: rgba(245, 166, 35, 0.14);
+            --amb-border: rgba(245, 166, 35, 0.38);
+            --card: rgba(14, 14, 20, 0.85);
+            --nav: rgba(10, 10, 16, 0.92);
+            --glass: rgba(255, 255, 255, 0.05);
+            --gb: rgba(255, 255, 255, 0.09);
+        }
 
-  /* ── NAV ── */
-  .nav{background:var(--nav);border-bottom:1px solid var(--gb);padding:9px 20px;
-    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:8px;
-    position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
-  .nav-brand{font-size:17px;font-weight:800;letter-spacing:-.3px;}
-  .nav-brand .acc{color:var(--pur);}
-  .nav-brand .ver{font-size:10px;color:#555;margin-left:5px;font-weight:400;}
-  .nav-links{display:flex;gap:3px;flex-wrap:wrap;}
-  .nbtn{font-size:12px;color:#999;background:transparent;border:1px solid transparent;
-    border-radius:6px;padding:5px 9px;cursor:pointer;transition:all .18s;
-    text-decoration:none;display:inline-flex;align-items:center;gap:5px;}
-  .nbtn:hover{color:#fff;border-color:var(--gb);background:var(--glass);}
-  .nbtn.sp{border-color:var(--pur-border);background:var(--pur-dim);color:#c8aaff;}
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
 
-  /* ── HERO ── */
-  .hero{padding:52px 20px 30px;text-align:center;}
-  .hero-badge{display:inline-block;font-size:10px;letter-spacing:1.3px;text-transform:uppercase;
-    color:#9b84e8;border:1px solid var(--pur-border);background:var(--pur-dim);
-    border-radius:20px;padding:4px 13px;margin-bottom:16px;}
-  .hero h1{font-size:44px;font-weight:800;letter-spacing:-1.5px;line-height:1.1;margin-bottom:12px;}
-  .hero h1 em{font-style:normal;background:linear-gradient(90deg,#9b84e8,#64b2f5);
-    -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
-  .hero-sub{font-size:14px;color:#777;max-width:380px;margin:0 auto 26px;line-height:1.6;}
+        html, body {
+            min-height: 100%;
+            font-family: 'Segoe UI', system-ui, sans-serif;
+            background: linear-gradient(135deg, #080810 0%, #0d0a1c 45%, #080e18 100%);
+            color: #e0e0ef;
+            overflow-x: hidden;
+        }
 
-  /* ── BUTTON ROW ── */
-  .btn-row{display:flex;flex-wrap:wrap;gap:8px;justify-content:center;margin-bottom:36px;}
-  .hbtn{display:inline-flex;align-items:center;gap:6px;padding:9px 17px;border-radius:9px;
-    font-size:12px;font-weight:500;border:1px solid var(--gb);background:var(--card);
-    color:#ccc;cursor:pointer;transition:all .2s;text-decoration:none;}
-  .hbtn:hover{background:rgba(255,255,255,0.08);border-color:rgba(255,255,255,0.18);color:#fff;transform:translateY(-1px);}
-  .hbtn.pur{border-color:var(--pur-border);background:var(--pur-dim);color:#c4a8ff;}
-  .hbtn.blu{border-color:var(--blu-border);background:var(--blu-dim);color:#90c8f8;}
-  .hbtn.grn{border-color:var(--grn-border);background:var(--grn-dim);color:#7fdfaa;}
+        /* ── NAV ── */
+        .nav {
+            background: var(--nav);
+            border-bottom: 1px solid var(--gb);
+            padding: 9px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 8px;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            backdrop-filter: blur(12px);
+        }
 
-  /* ── FEATURE CARDS ── */
-  .cards-g{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-    gap:12px;padding:0 20px 28px;max-width:920px;margin:0 auto;}
-  .fcard{background:var(--card);border:1px solid var(--gb);border-radius:13px;padding:18px;
-    position:relative;overflow:hidden;transition:transform .22s,border-color .22s;}
-  .fcard:hover{transform:translateY(-3px);}
-  .fcard::before{content:'';position:absolute;top:-55px;left:-55px;width:150px;height:150px;
-    border-radius:50%;opacity:.16;pointer-events:none;transition:opacity .3s;}
-  .fcard:hover::before{opacity:.3;}
-  .fcard.red::before{background:radial-gradient(circle,#ff4444,transparent 70%);}
-  .fcard.blue::before{background:radial-gradient(circle,#1ec2ff,transparent 70%);}
-  .fcard.green::before{background:radial-gradient(circle,#2efd71,transparent 70%);}
-  .fcard.yellow::before{background:radial-gradient(circle,#ffd700,transparent 70%);}
-  .fcard-ico{width:36px;height:36px;border-radius:8px;border:1px solid var(--gb);
-    background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;
-    font-size:17px;margin-bottom:12px;}
-  .fcard h3{font-size:15px;font-weight:700;margin-bottom:7px;}
-  .fcard p{font-size:12px;color:#777;line-height:1.6;}
+        .nav-brand {
+            font-size: 17px;
+            font-weight: 800;
+            letter-spacing: -.3px;
+        }
 
-  /* ── SECTION DIVIDER ── */
-  .sdiv{border:none;border-top:1px solid var(--gb);margin:6px 20px 22px;}
-  .slabel{text-align:center;font-size:10px;letter-spacing:1.4px;text-transform:uppercase;color:#444;margin-bottom:14px;}
+        .nav-brand .acc {
+            color: var(--pur);
+        }
 
-  /* ── DROPDOWN SYSTEM ── */
-  .dd-wrap{max-width:580px;margin:0 auto 10px;padding:0 20px;}
-  .dd-title{font-size:11px;color:#666;font-weight:600;letter-spacing:.5px;margin-bottom:6px;text-transform:uppercase;}
-  .dd-trigger{width:100%;background:var(--card);border:1px solid var(--gb);border-radius:10px;
-    padding:11px 15px;display:flex;align-items:center;justify-content:space-between;
-    cursor:pointer;color:#ddd;font-size:13px;transition:border-color .18s;user-select:none;}
-  .dd-trigger:hover{border-color:var(--pur-border);}
-  .dd-trigger.open{border-color:var(--pur-border);border-bottom-left-radius:0;border-bottom-right-radius:0;}
-  .dd-tl{display:flex;align-items:center;gap:9px;}
-  .dd-arrow{transition:transform .2s;color:#555;font-size:12px;}
-  .dd-arrow.open{transform:rotate(180deg);}
-  .dd-menu{width:100%;background:#0c0c14;border:1px solid var(--pur-border);border-top:none;
-    border-radius:0 0 10px 10px;overflow:hidden;display:none;}
-  .dd-menu.open{display:block;}
-  .dd-search{padding:9px 13px;border-bottom:1px solid var(--gb);}
-  .dd-search input{width:100%;background:rgba(255,255,255,.05);border:1px solid var(--gb);
-    border-radius:6px;padding:5px 9px;font-size:12px;color:#ddd;outline:none;}
-  .dd-search input::placeholder{color:#444;}
-  .dd-search input:focus{border-color:var(--pur-border);}
-  .dd-opts{max-height:240px;overflow-y:auto;}
-  .dd-opts::-webkit-scrollbar{width:3px;}
-  .dd-opts::-webkit-scrollbar-thumb{background:#2a2a3a;border-radius:3px;}
-  .dd-opt{padding:10px 15px;display:flex;align-items:center;gap:11px;cursor:pointer;
-    transition:background .14s;border-bottom:1px solid rgba(255,255,255,.03);}
-  .dd-opt:last-child{border-bottom:none;}
-  .dd-opt:hover,.dd-opt.sel{background:var(--pur-dim);}
-  .dd-opt-icon{font-size:17px;width:28px;text-align:center;flex-shrink:0;}
-  .dd-opt-info{flex:1;min-width:0;}
-  .dd-opt-name{font-size:12px;font-weight:600;color:#ddd;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;}
-  .dd-opt-desc{font-size:10px;color:#555;margin-top:1px;}
-  .badge{font-size:10px;padding:2px 7px;border-radius:20px;font-weight:600;white-space:nowrap;flex-shrink:0;}
-  .b-stable{background:rgba(46,200,113,.14);color:var(--grn);border:1px solid var(--grn-border);}
-  .b-beta{background:rgba(245,166,35,.14);color:var(--amb);border:1px solid var(--amb-border);}
-  .b-outdated{background:rgba(150,150,150,.12);color:#888;border:1px solid rgba(150,150,150,.28);}
-  .b-link{background:var(--blu-dim);color:#90c8f8;border:1px solid var(--blu-border);}
-  .b-new{background:var(--pur-dim);color:#c4a8ff;border:1px solid var(--pur-border);}
-  .dd-check{color:var(--pur);font-size:13px;flex-shrink:0;}
-  .dd-action{padding:10px 14px;display:flex;gap:8px;background:rgba(0,0,0,.3);}
-  .dd-copy-btn,.dd-open-btn{flex:1;padding:8px;border-radius:7px;font-size:12px;font-weight:600;
-    cursor:pointer;border:1px solid;transition:all .18s;display:flex;align-items:center;justify-content:center;gap:5px;}
-  .dd-copy-btn{background:var(--pur-dim);border-color:var(--pur-border);color:#c4a8ff;}
-  .dd-copy-btn:hover{background:rgba(125,82,222,.3);}
-  .dd-open-btn{background:var(--blu-dim);border-color:var(--blu-border);color:#90c8f8;}
-  .dd-open-btn:hover{background:rgba(30,124,205,.3);}
+        .nav-brand .ver {
+            font-size: 10px;
+            color: #555;
+            margin-left: 5px;
+            font-weight: 400;
+        }
 
-  /* ── DOWNLOAD CARDS ── */
-  .dl-section{padding:0 20px 32px;max-width:860px;margin:0 auto;}
-  .dl-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:11px;}
-  .dl-card{background:var(--card);border:1px solid var(--gb);border-radius:13px;padding:16px;
-    transition:border-color .2s,transform .2s;}
-  .dl-card:hover{border-color:var(--pur-border);transform:translateY(-2px);}
-  .dl-hdr{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px;}
-  .dl-title{font-size:13px;font-weight:700;}
-  .dl-ico{font-size:19px;}
-  .dl-meta{font-size:11px;color:#666;margin-bottom:12px;line-height:1.55;}
-  .dl-tags{display:flex;flex-wrap:wrap;gap:4px;margin-bottom:12px;}
-  .dl-tag{font-size:10px;padding:2px 7px;border-radius:20px;background:rgba(255,255,255,.05);border:1px solid var(--gb);color:#777;}
-  .dl-btn{width:100%;padding:8px;border-radius:7px;background:var(--pur-dim);border:1px solid var(--pur-border);
-    color:#c4a8ff;font-size:12px;font-weight:600;cursor:pointer;display:flex;align-items:center;
-    justify-content:center;gap:5px;transition:all .18s;}
-  .dl-btn:hover{background:rgba(125,82,222,.28);}
-  .dl-btn.blu{background:var(--blu-dim);border-color:var(--blu-border);color:#90c8f8;}
-  .dl-btn.blu:hover{background:rgba(30,124,205,.28);}
-  .dl-btn.grn{background:var(--grn-dim);border-color:var(--grn-border);color:#7fdfaa;}
-  .dl-btn.grn:hover{background:rgba(46,200,113,.28);}
-  .dl-prog{margin-top:8px;}
-  .dl-bar{height:2px;background:rgba(255,255,255,.05);border-radius:2px;overflow:hidden;}
-  .dl-fill{height:100%;background:linear-gradient(90deg,var(--pur),#64b2f5);border-radius:2px;width:0;transition:width 1.6s ease;}
+        .nav-links {
+            display: flex;
+            gap: 3px;
+            flex-wrap: wrap;
+        }
 
-  /* ── TOAST ── */
-  .toast{position:fixed;bottom:24px;right:24px;background:#1a1a2e;border:1px solid var(--pur-border);
-    color:#c4a8ff;font-size:13px;padding:10px 18px;border-radius:10px;opacity:0;
-    transform:translateY(10px);transition:all .3s;pointer-events:none;z-index:999;}
-  .toast.show{opacity:1;transform:translateY(0);}
+        .nbtn {
+            font-size: 12px;
+            color: #999;
+            background: transparent;
+            border: 1px solid transparent;
+            border-radius: 6px;
+            padding: 5px 9px;
+            cursor: pointer;
+            transition: all .18s;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
 
-  /* ── FOOTER ── */
-  .footer{background:var(--nav);border-top:1px solid var(--gb);padding:16px 20px;
-    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:10px;margin-top:10px;}
-  .footer-brand{font-size:14px;font-weight:800;}
-  .footer-brand span{color:var(--pur);}
-  .footer-copy{font-size:10px;color:#444;margin-top:2px;}
-</style>
+        .nbtn:hover {
+            color: #fff;
+            border-color: var(--gb);
+            background: var(--glass);
+        }
+
+        .nbtn.sp {
+            border-color: var(--pur-border);
+            background: var(--pur-dim);
+            color: #c8aaff;
+        }
+
+        /* ── HERO ── */
+        .hero {
+            padding: 52px 20px 30px;
+            text-align: center;
+        }
+
+        .hero-badge {
+            display: inline-block;
+            font-size: 10px;
+            letter-spacing: 1.3px;
+            text-transform: uppercase;
+            color: #9b84e8;
+            border: 1px solid var(--pur-border);
+            background: var(--pur-dim);
+            border-radius: 20px;
+            padding: 4px 13px;
+            margin-bottom: 16px;
+        }
+
+        .hero h1 {
+            font-size: 44px;
+            font-weight: 800;
+            letter-spacing: -1.5px;
+            line-height: 1.1;
+            margin-bottom: 12px;
+        }
+
+        .hero h1 em {
+            font-style: normal;
+            background: linear-gradient(90deg, #9b84e8, #64b2f5);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-sub {
+            font-size: 14px;
+            color: #777;
+            max-width: 380px;
+            margin: 0 auto 26px;
+            line-height: 1.6;
+        }
+
+        /* ── BUTTON ROW ── */
+        .btn-row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            justify-content: center;
+            margin-bottom: 36px;
+        }
+
+        .hbtn {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+            padding: 9px 17px;
+            border-radius: 9px;
+            font-size: 12px;
+            font-weight: 500;
+            border: 1px solid var(--gb);
+            background: var(--card);
+            color: #ccc;
+            cursor: pointer;
+            transition: all .2s;
+            text-decoration: none;
+        }
+
+        .hbtn:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.18);
+            color: #fff;
+            transform: translateY(-1px);
+        }
+
+        .hbtn.pur {
+            border-color: var(--pur-border);
+            background: var(--pur-dim);
+            color: #c4a8ff;
+        }
+
+        .hbtn.blu {
+            border-color: var(--blu-border);
+            background: var(--blu-dim);
+            color: #90c8f8;
+        }
+
+        .hbtn.grn {
+            border-color: var(--grn-border);
+            background: var(--grn-dim);
+            color: #7fdfaa;
+        }
+
+        /* ── FEATURE CARDS ── */
+        .cards-g {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 12px;
+            padding: 0 20px 28px;
+            max-width: 920px;
+            margin: 0 auto;
+        }
+
+        .fcard {
+            background: var(--card);
+            border: 1px solid var(--gb);
+            border-radius: 13px;
+            padding: 18px;
+            position: relative;
+            overflow: hidden;
+            transition: transform .22s, border-color .22s;
+        }
+
+        .fcard:hover {
+            transform: translateY(-3px);
+        }
+
+        .fcard::before {
+            content: '';
+            position: absolute;
+            top: -55px;
+            left: -55px;
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            opacity: .16;
+            pointer-events: none;
+            transition: opacity .3s;
+        }
+
+        .fcard:hover::before {
+            opacity: .3;
+        }
+
+        .fcard.red::before {
+            background: radial-gradient(circle, #ff4444, transparent 70%);
+        }
+
+        .fcard.blue::before {
+            background: radial-gradient(circle, #1ec2ff, transparent 70%);
+        }
+
+        .fcard.green::before {
+            background: radial-gradient(circle, #2efd71, transparent 70%);
+        }
+
+        .fcard.yellow::before {
+            background: radial-gradient(circle, #ffd700, transparent 70%);
+        }
+
+        .fcard-ico {
+            width: 36px;
+            height: 36px;
+            border-radius: 8px;
+            border: 1px solid var(--gb);
+            background: rgba(0, 0, 0, .4);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 17px;
+            margin-bottom: 12px;
+        }
+
+        .fcard h3 {
+            font-size: 15px;
+            font-weight: 700;
+            margin-bottom: 7px;
+        }
+
+        .fcard p {
+            font-size: 12px;
+            color: #777;
+            line-height: 1.6;
+        }
+
+        /* ── SECTION DIVIDER ── */
+        .sdiv {
+            border: none;
+            border-top: 1px solid var(--gb);
+            margin: 6px 20px 22px;
+        }
+
+        .slabel {
+            text-align: center;
+            font-size: 10px;
+            letter-spacing: 1.4px;
+            text-transform: uppercase;
+            color: #444;
+            margin-bottom: 14px;
+        }
+
+        /* ── DROPDOWN SYSTEM ── */
+        .dd-wrap {
+            max-width: 580px;
+            margin: 0 auto 10px;
+            padding: 0 20px;
+        }
+
+        .dd-title {
+            font-size: 11px;
+            color: #666;
+            font-weight: 600;
+            letter-spacing: .5px;
+            margin-bottom: 6px;
+            text-transform: uppercase;
+        }
+
+        .dd-trigger {
+            width: 100%;
+            background: var(--card);
+            border: 1px solid var(--gb);
+            border-radius: 10px;
+            padding: 11px 15px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            cursor: pointer;
+            color: #ddd;
+            font-size: 13px;
+            transition: border-color .18s;
+            user-select: none;
+        }
+
+        .dd-trigger:hover {
+            border-color: var(--pur-border);
+        }
+
+        .dd-trigger.open {
+            border-color: var(--pur-border);
+            border-bottom-left-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        .dd-tl {
+            display: flex;
+            align-items: center;
+            gap: 9px;
+        }
+
+        .dd-arrow {
+            transition: transform .2s;
+            color: #555;
+            font-size: 12px;
+        }
+
+        .dd-arrow.open {
+            transform: rotate(180deg);
+        }
+
+        .dd-menu {
+            width: 100%;
+            background: #0c0c14;
+            border: 1px solid var(--pur-border);
+            border-top: none;
+            border-radius: 0 0 10px 10px;
+            overflow: hidden;
+            display: none;
+        }
+
+        .dd-menu.open {
+            display: block;
+        }
+
+        .dd-search {
+            padding: 9px 13px;
+            border-bottom: 1px solid var(--gb);
+        }
+
+        .dd-search input {
+            width: 100%;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--gb);
+            border-radius: 6px;
+            padding: 5px 9px;
+            font-size: 12px;
+            color: #ddd;
+            outline: none;
+        }
+
+        .dd-search input::placeholder {
+            color: #444;
+        }
+
+        .dd-search input:focus {
+            border-color: var(--pur-border);
+        }
+
+        .dd-opts {
+            max-height: 240px;
+            overflow-y: auto;
+        }
+
+        .dd-opts::-webkit-scrollbar {
+            width: 3px;
+        }
+
+        .dd-opts::-webkit-scrollbar-thumb {
+            background: #2a2a3a;
+            border-radius: 3px;
+        }
+
+        .dd-opt {
+            padding: 10px 15px;
+            display: flex;
+            align-items: center;
+            gap: 11px;
+            cursor: pointer;
+            transition: background .14s;
+            border-bottom: 1px solid rgba(255, 255, 255, .03);
+        }
+
+        .dd-opt:last-child {
+            border-bottom: none;
+        }
+
+        .dd-opt:hover, .dd-opt.sel {
+            background: var(--pur-dim);
+        }
+
+        .dd-opt-icon {
+            font-size: 17px;
+            width: 28px;
+            text-align: center;
+            flex-shrink: 0;
+        }
+
+        .dd-opt-info {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .dd-opt-name {
+            font-size: 12px;
+            font-weight: 600;
+            color: #ddd;
+            white-space: nowrap;
+            overflow: hidden;
+            text-overflow: ellipsis;
+        }
+
+        .dd-opt-desc {
+            font-size: 10px;
+            color: #555;
+            margin-top: 1px;
+        }
+
+        .badge {
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 20px;
+            font-weight: 600;
+            white-space: nowrap;
+            flex-shrink: 0;
+        }
+
+        .b-stable {
+            background: rgba(46, 200, 113, .14);
+            color: var(--grn);
+            border: 1px solid var(--grn-border);
+        }
+
+        .b-beta {
+            background: rgba(245, 166, 35, .14);
+            color: var(--amb);
+            border: 1px solid var(--amb-border);
+        }
+
+        .b-outdated {
+            background: rgba(150, 150, 150, .12);
+            color: #888;
+            border: 1px solid rgba(150, 150, 150, .28);
+        }
+
+        .b-link {
+            background: var(--blu-dim);
+            color: #90c8f8;
+            border: 1px solid var(--blu-border);
+        }
+
+        .b-new {
+            background: var(--pur-dim);
+            color: #c4a8ff;
+            border: 1px solid var(--pur-border);
+        }
+
+        .dd-check {
+            color: var(--pur);
+            font-size: 13px;
+            flex-shrink: 0;
+        }
+
+        .dd-action {
+            padding: 10px 14px;
+            display: flex;
+            gap: 8px;
+            background: rgba(0, 0, 0, .3);
+        }
+
+        .dd-copy-btn, .dd-open-btn {
+            flex: 1;
+            padding: 8px;
+            border-radius: 7px;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            border: 1px solid;
+            transition: all .18s;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+        }
+
+        .dd-copy-btn {
+            background: var(--pur-dim);
+            border-color: var(--pur-border);
+            color: #c4a8ff;
+        }
+
+        .dd-copy-btn:hover {
+            background: rgba(125, 82, 222, .3);
+        }
+
+        .dd-open-btn {
+            background: var(--blu-dim);
+            border-color: var(--blu-border);
+            color: #90c8f8;
+        }
+
+        .dd-open-btn:hover {
+            background: rgba(30, 124, 205, .3);
+        }
+
+        /* ── DOWNLOAD CARDS ── */
+        .dl-section {
+            padding: 0 20px 32px;
+            max-width: 860px;
+            margin: 0 auto;
+        }
+
+        .dl-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: 11px;
+        }
+
+        .dl-card {
+            background: var(--card);
+            border: 1px solid var(--gb);
+            border-radius: 13px;
+            padding: 16px;
+            transition: border-color .2s, transform .2s;
+        }
+
+        .dl-card:hover {
+            border-color: var(--pur-border);
+            transform: translateY(-2px);
+        }
+
+        .dl-hdr {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+
+        .dl-title {
+            font-size: 13px;
+            font-weight: 700;
+        }
+
+        .dl-ico {
+            font-size: 19px;
+        }
+
+        .dl-meta {
+            font-size: 11px;
+            color: #666;
+            margin-bottom: 12px;
+            line-height: 1.55;
+        }
+
+        .dl-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 4px;
+            margin-bottom: 12px;
+        }
+
+        .dl-tag {
+            font-size: 10px;
+            padding: 2px 7px;
+            border-radius: 20px;
+            background: rgba(255, 255, 255, .05);
+            border: 1px solid var(--gb);
+            color: #777;
+        }
+
+        .dl-btn {
+            width: 100%;
+            padding: 8px;
+            border-radius: 7px;
+            background: var(--pur-dim);
+            border: 1px solid var(--pur-border);
+            color: #c4a8ff;
+            font-size: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 5px;
+            transition: all .18s;
+        }
+
+        .dl-btn:hover {
+            background: rgba(125, 82, 222, .28);
+        }
+
+        .dl-btn.blu {
+            background: var(--blu-dim);
+            border-color: var(--blu-border);
+            color: #90c8f8;
+        }
+
+        .dl-btn.blu:hover {
+            background: rgba(30, 124, 205, .28);
+        }
+
+        .dl-btn.grn {
+            background: var(--grn-dim);
+            border-color: var(--grn-border);
+            color: #7fdfaa;
+        }
+
+        .dl-btn.grn:hover {
+            background: rgba(46, 200, 113, .28);
+        }
+
+        .dl-prog {
+            margin-top: 8px;
+        }
+
+        .dl-bar {
+            height: 2px;
+            background: rgba(255, 255, 255, .05);
+            border-radius: 2px;
+            overflow: hidden;
+        }
+
+        .dl-fill {
+            height: 100%;
+            background: linear-gradient(90deg, var(--pur), #64b2f5);
+            border-radius: 2px;
+            width: 0;
+            transition: width 0.6s ease;
+        }
+
+        /* ── TOAST ── */
+        .toast {
+            position: fixed;
+            bottom: 24px;
+            right: 24px;
+            background: #1a1a2e;
+            border: 1px solid var(--pur-border);
+            color: #c4a8ff;
+            font-size: 13px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            opacity: 0;
+            transform: translateY(10px);
+            transition: all .3s;
+            pointer-events: none;
+            z-index: 999;
+        }
+
+        .toast.show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ── FOOTER ── */
+        .footer {
+            background: var(--nav);
+            border-top: 1px solid var(--gb);
+            padding: 16px 20px;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .footer-brand {
+            font-size: 14px;
+            font-weight: 800;
+        }
+
+        .footer-brand span {
+            color: var(--pur);
+        }
+
+        .footer-copy {
+            font-size: 10px;
+            color: #444;
+            margin-top: 2px;
+        }
+    </style>
 </head>
 <body>
 
-<!-- ─── NAV ─── -->
-<div class="nav">
-  <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
-    <div class="nav-brand">Purium<span class="acc">.</span><span class="ver">v0.0.0.3</span></div>
-    <div class="nav-links">
-      <a class="nbtn" href="#">🏠 Home</a>
-      <a class="nbtn" href="#">❓ FAQ</a>
-      <a class="nbtn" href="#">⚙️ Help</a>
-      <a class="nbtn sp" href="obfusecator.html">🛡️ Obfuscator</a>
-    </div>
-  </div>
-  <div class="nav-links">
-    <a class="nbtn" href="#">📖 Docs</a>
-    <a class="nbtn" href="#">📄 ToS</a>
-    <a class="nbtn" href="#">🟢 Status</a>
-    <a class="nbtn sp" href="https://discord.gg/kSpXgcVhVU" target="_blank">💬 Discord</a>
-  </div>
-</div>
-
-<!-- ─── HERO ─── -->
-<div class="hero">
-  <div class="hero-badge">Script Execution Platform</div>
-  <h1>Welcome to <em>Purium</em></h1>
-  <p class="hero-sub">The classic solution to script execution — powerful, lightweight, and completely private.</p>
-  <div class="btn-row">
-    <a class="hbtn pur" href="https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/Secret%20Security" target="_blank">📜 Main Script</a>
-    <a class="hbtn blu" href="https://www.dropbox.com/scl/fi/betbjt1ig3ydf4umzt552/guide-pvp.text?rlkey=lvxemw59d8p3cpa9w224uy7k4&st=m2p8ujlc&dl=0" target="_blank">⚔️ PvP Guide</a>
-    <a class="hbtn" href="https://youtu.be/ohz9EXtmVY8?si=0ZGpsVETDS4n3AeJ" target="_blank">🎵 Giao hưởng phùng</a>
-    <a class="hbtn grn" href="https://blur009.vercel.app/projects/blur-autoclicker" target="_blank">🖱️ Auto Clicker</a>
-    <a class="hbtn" href="https://discord.gg/kSpXgcVhVU" target="_blank">💬 Discord</a>
-  </div>
-</div>
-
-<!-- FEATURE CARDS -->
-<div class="cards-g">
-  <div class="fcard red"><div class="fcard-ico">⚡</div><h3>Powerful</h3><p>Everything you need for development, analysis, and execution. Our API empowers scripts beyond vanilla environments.</p></div>
-  <div class="fcard blue"><div class="fcard-ico">🪶</div><h3>Lightweight</h3><p>Simple yet powerful. We hand you the tools and leave you to play — no bloat, no friction.</p></div>
-  <div class="fcard green"><div class="fcard-ico">🔒</div><h3>Stable</h3><p>Built on a battle-tested execution engine. No more fear of crashes and random bugs.</p></div>
-  <div class="fcard yellow"><div class="fcard-ico">🛡️</div><h3>Private</h3><p>Zero personal data collected. Minimal, transparent practices explained in our privacy policy.</p></div>
-</div>
-
-<hr class="sdiv">
-
-<!-- ══════════════════════════════════════════════════
-     DROPDOWN 1 — SCRIPTS
-     To add a script: copy one {} block inside `items:[...]`
-     Fields: icon, name, desc, badge, badgeClass, url, script
-     badgeClass options: b-stable  b-beta  b-outdated  b-link  b-new
-════════════════════════════════════════════════════ -->
-<div class="slabel">Scripts</div>
-<div class="dd-wrap">
-  <div class="dd-title">Select a script</div>
-  <div class="dd-trigger" id="dd-scripts-trigger" onclick="ddToggle('scripts')">
-    <div class="dd-tl"><span id="dd-scripts-si">📜</span><span id="dd-scripts-sn">Choose a script...</span><span class="badge b-stable" id="dd-scripts-sb" style="display:none"></span></div>
-    <span class="dd-arrow" id="dd-scripts-arrow">▾</span>
-  </div>
-  <div class="dd-menu" id="dd-scripts-menu">
-    <div class="dd-search"><input type="text" placeholder="Search scripts..." oninput="ddFilter('scripts',this.value)"></div>
-    <div class="dd-opts" id="dd-scripts-opts"></div>
-    <div class="dd-action">
-      <button class="dd-copy-btn" onclick="ddCopy('scripts')">📋 Copy loadstring</button>
-      <button class="dd-open-btn" onclick="ddOpenLink('scripts')">🔗 Open raw</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════════
-     DROPDOWN 2 — FFLAGS
-     To add: copy one {} block, change name/desc/badge/filename/data
-     `filename` = what the file will be named when downloaded
-     `data`     = paste the full JSON content between the backticks
-════════════════════════════════════════════════════ -->
-<div class="slabel" style="margin-top:18px">FFlags & Config</div>
-<div class="dd-wrap">
-  <div class="dd-title">Select an fflag file to download</div>
-  <div class="dd-trigger" id="dd-fflags-trigger" onclick="ddToggle('fflags')">
-    <div class="dd-tl"><span id="dd-fflags-si">🚩</span><span id="dd-fflags-sn">Choose an fflag...</span><span class="badge b-stable" id="dd-fflags-sb" style="display:none"></span></div>
-    <span class="dd-arrow" id="dd-fflags-arrow">▾</span>
-  </div>
-  <div class="dd-menu" id="dd-fflags-menu">
-    <div class="dd-search"><input type="text" placeholder="Search fflags..." oninput="ddFilter('fflags',this.value)"></div>
-    <div class="dd-opts" id="dd-fflags-opts"></div>
-    <div class="dd-action">
-      <button class="dd-open-btn" onclick="ddDownloadFile('fflags')" style="flex:1">📥 Download file</button>
-    </div>
-  </div>
-</div>
-
-<!-- ══════════════════════════════════════════════════
-     DROPDOWN 3 — MUSIC
-     To add: copy one {} block, change name/desc/url
-════════════════════════════════════════════════════ -->
-<div class="slabel" style="margin-top:18px">Music & Vibes</div>
-<div class="dd-wrap">
-  <div class="dd-title">Pick a track</div>
-  <div class="dd-trigger" id="dd-music-trigger" onclick="ddToggle('music')">
-    <div class="dd-tl"><span id="dd-music-si">🎵</span><span id="dd-music-sn">Choose a track...</span><span class="badge b-link" id="dd-music-sb" style="display:none"></span></div>
-    <span class="dd-arrow" id="dd-music-arrow">▾</span>
-  </div>
-  <div class="dd-menu" id="dd-music-menu">
-    <div class="dd-opts" id="dd-music-opts"></div>
-    <div class="dd-action">
-      <button class="dd-open-btn" onclick="ddOpenLink('music')" style="flex:1">▶ Open on YouTube</button>
-    </div>
-  </div>
-</div>
-
-<hr class="sdiv" style="margin-top:22px">
-
-<!-- ══════════════════════════════════════════════════
-     DOWNLOAD CARDS
-     To add a card: copy a dl-card block.
-     For embedded download: use onclick="dlEmbed(this,'KEY')"
-     For external link:     use onclick="dlGo(this,'URL')"
-     The KEY must match a key in EMBEDDED_FILES below in the script.
-════════════════════════════════════════════════════ -->
-<div class="slabel">Quick Downloads</div>
-<div class="dl-section">
-  <div class="dl-grid">
-
-    <div class="dl-card">
-      <div class="dl-hdr"><div class="dl-title">Main Script</div><div class="dl-ico">📜</div></div>
-      <div class="dl-meta">All Purium scripts in one raw file. Copy & run in your executor.</div>
-      <div class="dl-tags"><span class="dl-tag">Lua</span><span class="dl-tag">v0.0.0.3</span><span class="dl-tag">Raw</span></div>
-      <button class="dl-btn" onclick="dlGo(this,'https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/Secret%20Security')">📥 View Raw Script</button>
-      <div class="dl-prog"><div class="dl-bar"><div class="dl-fill"></div></div></div>
+    <div class="nav">
+        <div style="display:flex;align-items:center;gap:12px;flex-wrap:wrap">
+            <div class="nav-brand">Purium<span class="acc">.</span><span class="ver">v0.0.0.3</span></div>
+            <div class="nav-links">
+                <a class="nbtn" href="#">🏠 Home</a>
+                <a class="nbtn" href="#">❓ FAQ</a>
+                <a class="nbtn" href="#">⚙️ Help</a>
+                <a class="nbtn sp" href="obfusecator.html">🛡️ Obfuscator</a>
+            </div>
+        </div>
+        <div class="nav-links">
+            <a class="nbtn" href="#">📖 Docs</a>
+            <a class="nbtn" href="#">📄 ToS</a>
+            <a class="nbtn" href="#">🟢 Status</a>
+            <a class="nbtn sp" href="https://discord.gg/kSpXgcVhVU" target="_blank">💬 Discord</a>
+        </div>
     </div>
 
-    <div class="dl-card">
-      <div class="dl-hdr"><div class="dl-title">PvP Guide</div><div class="dl-ico">⚔️</div></div>
-      <div class="dl-meta">Full Minecraft PvP guide — combos, timing, strats.</div>
-      <div class="dl-tags"><span class="dl-tag">.txt</span><span class="dl-tag">Minecraft</span></div>
-      <button class="dl-btn blu" onclick="dlGo(this,'https://www.dropbox.com/scl/fi/betbjt1ig3ydf4umzt552/guide-pvp.text?rlkey=lvxemw59d8p3cpa9w224uy7k4&st=m2p8ujlc&dl=0')">📥 Download Guide</button>
-      <div class="dl-prog"><div class="dl-bar"><div class="dl-fill"></div></div></div>
+    <div class="hero">
+        <div class="hero-badge">Script Execution Platform</div>
+        <h1>Welcome to <em>Purium</em></h1>
+        <p class="hero-sub">The classic solution to script execution — powerful, lightweight, and completely private.</p>
+        <div class="btn-row">
+            <a class="hbtn pur" href="https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/Secret%20Security" target="_blank">📜 Main Script</a>
+            <a class="hbtn blu" href="https://www.dropbox.com/scl/fi/betbjt1ig3ydf4umzt552/guide-pvp.text?rlkey=lvxemw59d8p3cpa9w224uy7k4&st=m2p8ujlc&dl=0" target="_blank">⚔️ PvP Guide</a>
+            <a class="hbtn" href="https://youtu.be/ohz9EXtmVY8?si=0ZGpsVETDS4n3AeJ" target="_blank">🎵 Giao hưởng phùng</a>
+            <a class="hbtn grn" href="https://blur009.vercel.app/projects/blur-autoclicker" target="_blank">🖱️ Auto Clicker</a>
+            <a class="hbtn" href="https://discord.gg/kSpXgcVhVU" target="_blank">💬 Discord</a>
+        </div>
     </div>
 
-    <!-- ── EMBEDDED FFLAG DOWNLOAD CARDS ──
-         onclick="dlEmbed(this,'KEY')" — KEY must match EMBEDDED_FILES below -->
-    <div class="dl-card">
-      <div class="dl-hdr"><div class="dl-title">FFlags (FPS+Fling)</div><div class="dl-ico">⚡</div></div>
-      <div class="dl-meta">Helps FPS & makes fling bugs easier. Paste into ClientAppSettings.</div>
-      <div class="dl-tags"><span class="dl-tag">.json</span><span class="dl-tag">FFlag</span><span class="dl-tag">Embedded</span></div>
-      <button class="dl-btn pur" onclick="dlEmbed(this,'fflag')">📥 Download fflag.json</button>
-      <div class="dl-prog"><div class="dl-bar"><div class="dl-fill"></div></div></div>
+    <div class="cards-g">
+        <div class="fcard red">
+            <div class="fcard-ico">⚡</div>
+            <h3>Powerful</h3>
+            <p>Everything you need for development, analysis, and execution. Our API empowers scripts beyond vanilla environments.</p>
+        </div>
+        <div class="fcard blue">
+            <div class="fcard-ico">🪶</div>
+            <h3>Lightweight</h3>
+            <p>Simple yet powerful. We hand you the tools and leave you to play — no bloat, no friction.</p>
+        </div>
+        <div class="fcard green">
+            <div class="fcard-ico">🔒</div>
+            <h3>Stable</h3>
+            <p>Built on a battle-tested execution engine. No more fear of crashes and random bugs.</p>
+        </div>
+        <div class="fcard yellow">
+            <div class="fcard-ico">🛡️</div>
+            <h3>Private</h3>
+            <p>Zero personal data collected. Minimal, transparent practices explained in our privacy policy.</p>
+        </div>
     </div>
 
-    <div class="dl-card">
-      <div class="dl-hdr"><div class="dl-title">Custom FFlags 1</div><div class="dl-ico">🔧</div></div>
-      <div class="dl-meta">Performance and techs focused fflags — recommended for pefo.</div>
-      <div class="dl-tags"><span class="dl-tag">.json</span><span class="dl-tag">Custom</span><span class="dl-tag">Embedded</span></div>
-      <button class="dl-btn pur" onclick="dlEmbed(this,'custom1')">📥 Download Best fflags.json</button>
-      <div class="dl-prog"><div class="dl-bar"><div class="dl-fill"></div></div></div>
+    <hr class="sdiv">
+
+    <div class="slabel">Scripts</div>
+    <div class="dd-wrap">
+        <div class="dd-title">Select a script</div>
+        <div class="dd-trigger" id="dd-scripts-trigger" onclick="ddToggle('scripts')">
+            <div class="dd-tl">
+                <span id="dd-scripts-si">📜</span>
+                <span id="dd-scripts-sn">Choose a script...</span>
+                <span class="badge b-stable" id="dd-scripts-sb" style="display:none"></span>
+            </div>
+            <span class="dd-arrow" id="dd-scripts-arrow">▾</span>
+        </div>
+        <div class="dd-menu" id="dd-scripts-menu">
+            <div class="dd-search">
+                <input type="text" placeholder="Search scripts..." oninput="ddFilter('scripts',this.value)">
+            </div>
+            <div class="dd-opts" id="dd-scripts-opts"></div>
+            <div class="dd-action">
+                <button class="dd-copy-btn" onclick="ddCopy('scripts')">📋 Copy loadstring</button>
+                <button class="dd-open-btn" onclick="ddOpenLink('scripts')">🔗 Open raw</button>
+            </div>
+        </div>
     </div>
 
-    <div class="dl-card">
-      <div class="dl-hdr"><div class="dl-title">Custom FFlags 2</div><div class="dl-ico">🐛</div></div>
-      <div class="dl-meta">Bug exploits and tech fflags for advanced users.</div>
-      <div class="dl-tags"><span class="dl-tag">.json</span><span class="dl-tag">Custom</span><span class="dl-tag">Embedded</span></div>
-      <button class="dl-btn pur" onclick="dlEmbed(this,'custom2')">📥 Download CustomFFLAGS-Copy.json</button>
-      <div class="dl-prog"><div class="dl-bar"><div class="dl-fill"></div></div></div>
+    <div class="slabel" style="margin-top:18px">FFlags & Config</div>
+    <div class="dd-wrap">
+        <div class="dd-title">Select an fflag file to download</div>
+        <div class="dd-trigger" id="dd-fflags-trigger" onclick="ddToggle('fflags')">
+            <div class="dd-tl">
+                <span id="dd-fflags-si">🚩</span>
+                <span id="dd-fflags-sn">Choose an fflag...</span>
+                <span class="badge b-stable" id="dd-fflags-sb" style="display:none"></span>
+            </div>
+            <span class="dd-arrow" id="dd-fflags-arrow">▾</span>
+        </div>
+        <div class="dd-menu" id="dd-fflags-menu">
+            <div class="dd-search">
+                <input type="text" placeholder="Search fflags..." oninput="ddFilter('fflags',this.value)">
+            </div>
+            <div class="dd-opts" id="dd-fflags-opts"></div>
+            <div class="dd-action">
+                <button class="dd-open-btn" onclick="ddDownloadFile('fflags')" style="flex:1">📥 Download file</button>
+            </div>
+        </div>
     </div>
 
-    <div class="dl-card">
-      <div class="dl-hdr"><div class="dl-title">FFFlag Fusion</div><div class="dl-ico">💥</div></div>
-      <div class="dl-meta">Experimental combined fflags. May cause instability.</div>
-      <div class="dl-tags"><span class="dl-tag">.json</span><span class="dl-tag">Beta</span><span class="dl-tag">Embedded</span></div>
-      <button class="dl-btn blu" onclick="dlEmbed(this,'fusion')">📥 Download broken.json</button>
-      <div class="dl-prog"><div class="dl-bar"><div class="dl-fill"></div></div></div>
+    <div class="slabel" style="margin-top:18px">Music & Vibes</div>
+    <div class="dd-wrap">
+        <div class="dd-title">Pick a track</div>
+        <div class="dd-trigger" id="dd-music-trigger" onclick="ddToggle('music')">
+            <div class="dd-tl">
+                <span id="dd-music-si">🎵</span>
+                <span id="dd-music-sn">Choose a track...</span>
+                <span class="badge b-link" id="dd-music-sb" style="display:none"></span>
+            </div>
+            <span class="dd-arrow" id="dd-music-arrow">▾</span>
+        </div>
+        <div class="dd-menu" id="dd-music-menu">
+            <div class="dd-opts" id="dd-music-opts"></div>
+            <div class="dd-action">
+                <button class="dd-open-btn" onclick="ddOpenLink('music')" style="flex:1">▶ Open on YouTube</button>
+            </div>
+        </div>
     </div>
 
-    <div class="dl-card">
-      <div class="dl-hdr"><div class="dl-title">FFlag List</div><div class="dl-ico">📋</div></div>
-      <div class="dl-meta">Full reference list of all available fflag keys.</div>
-      <div class="dl-tags"><span class="dl-tag">.txt</span><span class="dl-tag">Reference</span><span class="dl-tag">Embedded</span></div>
-      <button class="dl-btn grn" onclick="dlEmbed(this,'list')">📥 Download list.txt</button>
-      <div class="dl-prog"><div class="dl-bar"><div class="dl-fill"></div></div></div>
+    <hr class="sdiv" style="margin-top:22px">
+
+    <div class="slabel">Quick Downloads</div>
+    <div class="dl-section">
+        <div class="dl-grid">
+
+            <div class="dl-card">
+                <div class="dl-hdr">
+                    <div class="dl-title">Main Script</div>
+                    <div class="dl-ico">📜</div>
+                </div>
+                <div class="dl-meta">All Purium scripts in one raw file. Copy & run in your executor.</div>
+                <div class="dl-tags">
+                    <span class="dl-tag">Lua</span>
+                    <span class="dl-tag">v0.0.0.3</span>
+                    <span class="dl-tag">Raw</span>
+                </div>
+                <button class="dl-btn" onclick="dlGo(this,'https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/Secret%20Security')">📥 View Raw Script</button>
+                <div class="dl-prog">
+                    <div class="dl-bar">
+                        <div class="dl-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dl-card">
+                <div class="dl-hdr">
+                    <div class="dl-title">PvP Guide</div>
+                    <div class="dl-ico">⚔️</div>
+                </div>
+                <div class="dl-meta">Full Minecraft PvP guide — combos, timing, strats.</div>
+                <div class="dl-tags">
+                    <span class="dl-tag">.txt</span>
+                    <span class="dl-tag">Minecraft</span>
+                </div>
+                <button class="dl-btn blu" onclick="dlGo(this,'https://www.dropbox.com/scl/fi/betbjt1ig3ydf4umzt552/guide-pvp.text?rlkey=lvxemw59d8p3cpa9w224uy7k4&st=m2p8ujlc&dl=0')">📥 Download Guide</button>
+                <div class="dl-prog">
+                    <div class="dl-bar">
+                        <div class="dl-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dl-card">
+                <div class="dl-hdr">
+                    <div class="dl-title">FFlags (FPS+Fling)</div>
+                    <div class="dl-ico">⚡</div>
+                </div>
+                <div class="dl-meta">Helps FPS & makes fling bugs easier. Paste into ClientAppSettings.</div>
+                <div class="dl-tags">
+                    <span class="dl-tag">.json</span>
+                    <span class="dl-tag">FFlag</span>
+                    <span class="dl-tag">Embedded</span>
+                </div>
+                <button class="dl-btn pur" onclick="dlEmbed(this,'fflag')">📥 Download fflag.json</button>
+                <div class="dl-prog">
+                    <div class="dl-bar">
+                        <div class="dl-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dl-card">
+                <div class="dl-hdr">
+                    <div class="dl-title">Custom FFlags 1</div>
+                    <div class="dl-ico">🔧</div>
+                </div>
+                <div class="dl-meta">Performance and techs focused fflags — recommended for pefo.</div>
+                <div class="dl-tags">
+                    <span class="dl-tag">.json</span>
+                    <span class="dl-tag">Custom</span>
+                    <span class="dl-tag">Embedded</span>
+                </div>
+                <button class="dl-btn pur" onclick="dlEmbed(this,'custom1')">📥 Download Best fflags.json</button>
+                <div class="dl-prog">
+                    <div class="dl-bar">
+                        <div class="dl-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dl-card">
+                <div class="dl-hdr">
+                    <div class="dl-title">Custom FFlags 2</div>
+                    <div class="dl-ico">🐛</div>
+                </div>
+                <div class="dl-meta">Bug exploits and tech fflags for advanced users.</div>
+                <div class="dl-tags">
+                    <span class="dl-tag">.json</span>
+                    <span class="dl-tag">Custom</span>
+                    <span class="dl-tag">Embedded</span>
+                </div>
+                <button class="dl-btn pur" onclick="dlEmbed(this,'custom2')">📥 Download CustomFFLAGS-Copy.json</button>
+                <div class="dl-prog">
+                    <div class="dl-bar">
+                        <div class="dl-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dl-card">
+                <div class="dl-hdr">
+                    <div class="dl-title">FFFlag Fusion</div>
+                    <div class="dl-ico">💥</div>
+                </div>
+                <div class="dl-meta">Experimental combined fflags. May cause instability.</div>
+                <div class="dl-tags">
+                    <span class="dl-tag">.json</span>
+                    <span class="dl-tag">Beta</span>
+                    <span class="dl-tag">Embedded</span>
+                </div>
+                <button class="dl-btn blu" onclick="dlEmbed(this,'fusion')">📥 Download broken.json</button>
+                <div class="dl-prog">
+                    <div class="dl-bar">
+                        <div class="dl-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dl-card">
+                <div class="dl-hdr">
+                    <div class="dl-title">FFlag List</div>
+                    <div class="dl-ico">📋</div>
+                </div>
+                <div class="dl-meta">Full reference list of all available fflag keys.</div>
+                <div class="dl-tags">
+                    <span class="dl-tag">.txt</span>
+                    <span class="dl-tag">Reference</span>
+                    <span class="dl-tag">Embedded</span>
+                </div>
+                <button class="dl-btn grn" onclick="dlEmbed(this,'list')">📥 Download list.txt</button>
+                <div class="dl-prog">
+                    <div class="dl-bar">
+                        <div class="dl-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dl-card">
+                <div class="dl-hdr">
+                    <div class="dl-title">Voidstrap</div>
+                    <div class="dl-ico">🚀</div>
+                </div>
+                <div class="dl-meta">Recommended Roblox bootstrapper for FFlag injection.</div>
+                <div class="dl-tags">
+                    <span class="dl-tag">GitHub</span>
+                    <span class="dl-tag">v1.1.0.5</span>
+                    <span class="dl-tag">Recommended</span>
+                </div>
+                <button class="dl-btn" onclick="dlGo(this,'https://github.com/voidstrap/Voidstrap/releases/tag/v1.1.0.5')">📥 GitHub Release</button>
+                <div class="dl-prog">
+                    <div class="dl-bar">
+                        <div class="dl-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dl-card">
+                <div class="dl-hdr">
+                    <div class="dl-title">Solas Shader</div>
+                    <div class="dl-ico">🌅</div>
+                </div>
+                <div class="dl-meta">Solas Shader for Minecraft via OptiFine. Best visuals.</div>
+                <div class="dl-tags">
+                    <span class="dl-tag">Shader</span>
+                    <span class="dl-tag">OptiFine</span>
+                </div>
+                <button class="dl-btn" onclick="dlGo(this,'https://www.curseforge.com/minecraft/shaders/solas-shader')">🔗 CurseForge</button>
+                <div class="dl-prog">
+                    <div class="dl-bar">
+                        <div class="dl-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="dl-card">
+                <div class="dl-hdr">
+                    <div class="dl-title">Auto Clicker</div>
+                    <div class="dl-ico">🖱️</div>
+                </div>
+                <div class="dl-meta">Best auto clicker — blur009 project. Free web tool.</div>
+                <div class="dl-tags">
+                    <span class="dl-tag">Web</span>
+                    <span class="dl-tag">Free</span>
+                </div>
+                <button class="dl-btn grn" onclick="dlGo(this,'https://blur009.vercel.app/projects/blur-autoclicker')">🔗 Open Tool</button>
+                <div class="dl-prog">
+                    <div class="dl-bar">
+                        <div class="dl-fill"></div>
+                    </div>
+                </div>
+            </div>
+
+        </div>
     </div>
 
-    <div class="dl-card">
-      <div class="dl-hdr"><div class="dl-title">Voidstrap</div><div class="dl-ico">🚀</div></div>
-      <div class="dl-meta">Recommended Roblox bootstrapper for FFlag injection.</div>
-      <div class="dl-tags"><span class="dl-tag">GitHub</span><span class="dl-tag">v1.1.0.5</span><span class="dl-tag">Recommended</span></div>
-      <button class="dl-btn" onclick="dlGo(this,'https://github.com/voidstrap/Voidstrap/releases/tag/v1.1.0.5')">📥 GitHub Release</button>
-      <div class="dl-prog"><div class="dl-bar"><div class="dl-fill"></div></div></div>
+    <div style="text-align:center;margin-bottom:28px;">
+        <span style="font-size:11px;color:#555">TSB Place ID: </span>
+        <code id="tsb-id" style="font-size:12px;color:#c4a8ff;background:var(--pur-dim);border:1px solid var(--pur-border);
+            padding:3px 10px;border-radius:6px;cursor:pointer"
+            onclick="copyText('10449761463',this,'Copied!')">10449761463</code>
     </div>
 
-    <div class="dl-card">
-      <div class="dl-hdr"><div class="dl-title">Solas Shader</div><div class="dl-ico">🌅</div></div>
-      <div class="dl-meta">Solas Shader for Minecraft via OptiFine. Best visuals.</div>
-      <div class="dl-tags"><span class="dl-tag">Shader</span><span class="dl-tag">OptiFine</span></div>
-      <button class="dl-btn" onclick="dlGo(this,'https://www.curseforge.com/minecraft/shaders/solas-shader')">🔗 CurseForge</button>
-      <div class="dl-prog"><div class="dl-bar"><div class="dl-fill"></div></div></div>
+    <div class="footer">
+        <div>
+            <div class="footer-brand">Purium<span>.</span></div>
+            <div class="footer-copy">© 2025 Purium by hlck49really. All rights reserved.</div>
+        </div>
+        <div class="nav-links">
+            <a class="nbtn sp" href="https://discord.gg/kSpXgcVhVU" target="_blank">💬 Discord</a>
+            <a class="nbtn" href="#">🚀 Coming soon</a>
+        </div>
     </div>
 
-    <div class="dl-card">
-      <div class="dl-hdr"><div class="dl-title">Auto Clicker</div><div class="dl-ico">🖱️</div></div>
-      <div class="dl-meta">Best auto clicker — blur009 project. Free web tool.</div>
-      <div class="dl-tags"><span class="dl-tag">Web</span><span class="dl-tag">Free</span></div>
-      <button class="dl-btn grn" onclick="dlGo(this,'https://blur009.vercel.app/projects/blur-autoclicker')">🔗 Open Tool</button>
-      <div class="dl-prog"><div class="dl-bar"><div class="dl-fill"></div></div></div>
-    </div>
+    <div class="toast" id="toast"></div>
 
-  </div>
-</div>
+    <script>
+        const DROPDOWNS = {
+            scripts: {
+                items: [
+                    {
+                        icon: '✅',
+                        name: 'SBSD-Wind (Working)',
+                        desc: 'Main working script — use this one',
+                        badge: 'Working',
+                        badgeClass: 'b-stable',
+                        url: 'https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/SBSD-Wind.lua',
+                        script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/SBSD-Wind.lua"))()'
+                    },
+                    {
+                        icon: '⚠️',
+                        name: 'Silent Assassin (Outdated)',
+                        desc: 'Old script — may not work',
+                        badge: 'Outdated',
+                        badgeClass: 'b-outdated',
+                        url: 'https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/slient.lua',
+                        script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/slient.lua"))()'
+                    },
+                    {
+                        icon: '⚠️',
+                        name: 'Chain (Outdated)',
+                        desc: 'Old chain script',
+                        badge: 'Outdated',
+                        badgeClass: 'b-outdated',
+                        url: 'https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/Chain.lua',
+                        script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/Chain.lua"))()'
+                    },
+                    {
+                        icon: '🧪',
+                        name: 'Test / Bruh',
+                        desc: 'Experimental test script',
+                        badge: 'Beta',
+                        badgeClass: 'b-beta',
+                        url: 'https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/test.lua',
+                        script: 'loadstring(game:HttpGet("https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/test.lua"))()'
+                    },
+                    {
+                        icon: '📜',
+                        name: 'Secret Security (all scripts)',
+                        desc: 'Full raw file with all scripts listed',
+                        badge: 'Raw',
+                        badgeClass: 'b-link',
+                        url: 'https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/Secret%20Security',
+                        script: ''
+                    }
+                ]
+            },
+            fflags: {
+                items: [
+                    {
+                        icon: '⚡',
+                        name: 'FFlags (FPS + fling bugs)',
+                        desc: 'Helps FPS & easier fling bugs',
+                        badge: 'Stable',
+                        badgeClass: 'b-stable',
+                        filename: 'fflag.json',
+                        key: 'fflag'
+                    },
+                    {
+                        icon: '🔧',
+                        name: 'Custom FFlags 1 (Pefo & Techs)',
+                        desc: 'Performance and tech fflags',
+                        badge: 'Custom',
+                        badgeClass: 'b-new',
+                        filename: 'Best fflags.json',
+                        key: 'custom1'
+                    },
+                    {
+                        icon: '🐛',
+                        name: 'Custom FFlags 2 (Bugs & Techs)',
+                        desc: 'Bug exploits and tech fflags',
+                        badge: 'Custom',
+                        badgeClass: 'b-new',
+                        filename: 'CustomFFLAGS-Copy.json',
+                        key: 'custom2'
+                    },
+                    {
+                        icon: '💥',
+                        name: 'FFFlag Fusion (Broken)',
+                        desc: 'Experimental combined fflags',
+                        badge: 'Beta',
+                        badgeClass: 'b-beta',
+                        filename: 'broken.json',
+                        key: 'fusion'
+                    },
+                    {
+                        icon: '👑',
+                        name: 'The Strongest Of Today ( FFlag )',
+                        desc: 'Support For Both Blade Ball And Tsb',
+                        badge: 'Strongest Today',
+                        badgeClass: 'b-stable',
+                        filename: 'The Strongest Of Today.json',
+                        key: 'strongest_today'
+                    },
+                    {
+                        icon: '📋',
+                        name: 'FFlag List (reference)',
+                        desc: 'Full list of available fflag keys',
+                        badge: 'Txt',
+                        badgeClass: 'b-link',
+                        filename: 'list.txt',
+                        key: 'list'
+                    }
+                ]
+            },
+            music: {
+                items: [
+                    {
+                        icon: '🎻',
+                        name: 'Giao hưởng phùng thank độ',
+                        desc: 'Vietnamese classical vibes',
+                        badge: 'YouTube',
+                        badgeClass: 'b-link',
+                        url: 'https://youtu.be/ohz9EXtmVY8?si=0ZGpsVETDS4n3AeJ'
+                    },
+                    {
+                        icon: '🎵',
+                        name: 'Mozart Phonk?',
+                        desc: 'The original page track',
+                        badge: 'YouTube',
+                        badgeClass: 'b-link',
+                        url: 'https://youtu.be/hwrt5O9IWlw?si=OPTEU7GeV6xxWAqu'
+                    },
+                    {
+                        icon: '🏮',
+                        name: 'Montagem Hongbao',
+                        desc: 'Montagem track',
+                        badge: 'YouTube',
+                        badgeClass: 'b-link',
+                        url: 'https://youtu.be/8wUo-htFZCY?si=E6AFUtzq5P_7avMQ'
+                    },
+                    {
+                        icon: '🕺',
+                        name: 'Gogogaga Funk',
+                        desc: 'Funk banger',
+                        badge: 'YouTube',
+                        badgeClass: 'b-link',
+                        url: 'https://youtu.be/J8yUuMWOLnY?si=o_m92SpGzc8F5NZg'
+                    },
+                    {
+                        icon: '💎',
+                        name: 'Cry For Me × Jackpot',
+                        desc: 'Latest track',
+                        badge: 'YouTube',
+                        badgeClass: 'b-link',
+                        url: 'https://youtu.be/J7DOpglDWMk?si=6hJQMkpJbxnCRpq_'
+                    }
+                ]
+            }
+        };
 
-<!-- TSB place ID -->
-<div style="text-align:center;margin-bottom:28px;">
-  <span style="font-size:11px;color:#555">TSB Place ID: </span>
-  <code id="tsb-id" style="font-size:12px;color:#c4a8ff;background:var(--pur-dim);border:1px solid var(--pur-border);
-    padding:3px 10px;border-radius:6px;cursor:pointer"
-    onclick="copyText('10449761463',this,'Copied!')">10449761463</code>
-</div>
-
-<!-- FOOTER -->
-<div class="footer">
-  <div>
-    <div class="footer-brand">Purium<span>.</span></div>
-    <div class="footer-copy">© 2025 Purium by hlck49really. All rights reserved.</div>
-  </div>
-  <div class="nav-links">
-    <a class="nbtn sp" href="https://discord.gg/kSpXgcVhVU" target="_blank">💬 Discord</a>
-    <a class="nbtn" href="#">🚀 Coming soon</a>
-  </div>
-</div>
-
-<!-- TOAST -->
-<div class="toast" id="toast"></div>
-
-<script>
-/* ══════════════════════════════════════════════════════════════════════
-   ████  EDIT ZONE — All your data lives here  ████
-   ══════════════════════════════════════════════════════════════════════
-
-   HOW TO ADD A SCRIPT:
-     Copy one {} block in the scripts items array.
-     Change: icon, name, desc, badge, badgeClass, url, script
-     badgeClass: b-stable | b-beta | b-outdated | b-link | b-new
-
-   HOW TO ADD AN FFLAG FILE:
-     Copy one {} block in the fflags items array.
-     Change: icon, name, desc, badge, badgeClass, filename, key
-     Then scroll down to EMBEDDED_FILES and add a matching key with your JSON pasted in.
-
-   HOW TO ADD A MUSIC LINK:
-     Copy one {} block in the music items array. Change: icon, name, desc, url
-
-   HOW TO ADD A DOWNLOAD CARD:
-     Copy a <div class="dl-card"> block in the HTML above.
-     For embedded download: onclick="dlEmbed(this,'YOUR_KEY')"
-     For external link:     onclick="dlGo(this,'https://...')"
-══════════════════════════════════════════════════════════════════════ */
-
-const DROPDOWNS = {
-
-  /* ── SCRIPTS ───────────────────────────────── */
-  scripts: { items: [
-    { icon:'✅', name:'SBSD-Wind (Working)', desc:'Main working script — use this one',
-      badge:'Working', badgeClass:'b-stable',
-      url:'https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/SBSD-Wind.lua',
-      script:'loadstring(game:HttpGet("https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/SBSD-Wind.lua"))()' },
-
-    { icon:'⚠️', name:'Silent Assassin (Outdated)', desc:'Old script — may not work',
-      badge:'Outdated', badgeClass:'b-outdated',
-      url:'https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/slient.lua',
-      script:'loadstring(game:HttpGet("https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/slient.lua"))()' },
-
-    { icon:'⚠️', name:'Chain (Outdated)', desc:'Old chain script',
-      badge:'Outdated', badgeClass:'b-outdated',
-      url:'https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/Chain.lua',
-      script:'loadstring(game:HttpGet("https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/Chain.lua"))()' },
-
-    { icon:'🧪', name:'Test / Bruh', desc:'Experimental test script',
-      badge:'Beta', badgeClass:'b-beta',
-      url:'https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/test.lua',
-      script:'loadstring(game:HttpGet("https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/test.lua"))()' },
-
-    { icon:'📜', name:'Secret Security (all scripts)', desc:'Full raw file with all scripts listed',
-      badge:'Raw', badgeClass:'b-link',
-      url:'https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/Secret%20Security',
-      script:'' },
-  ]},
-
-  /* ── FFLAGS ─────────────────────────────────
-     `key` must match a key in EMBEDDED_FILES below */
-  fflags: { items: [
-    { icon:'⚡', name:'FFlags (FPS + fling bugs)', desc:'Helps FPS & easier fling bugs',
-      badge:'Stable', badgeClass:'b-stable', filename:'fflag.json', key:'fflag' },
-
-    { icon:'🔧', name:'Custom FFlags 1 (Pefo & Techs)', desc:'Performance and tech fflags',
-      badge:'Custom', badgeClass:'b-new', filename:'Best fflags.json', key:'custom1' },
-
-    { icon:'🐛', name:'Custom FFlags 2 (Bugs & Techs)', desc:'Bug exploits and tech fflags',
-      badge:'Custom', badgeClass:'b-new', filename:'CustomFFLAGS-Copy.json', key:'custom2' },
-
-    { icon:'💥', name:'FFFlag Fusion (Broken)', desc:'Experimental combined fflags',
-      badge:'Beta', badgeClass:'b-beta', filename:'broken.json', key:'fusion' },
-
-{ 
-  icon: '👑', 
-  name: 'The Strongest Of Today ( FFlag )', 
-  desc: 'This FFlag Support For Both Blade Ball And Tsb ( The Strongest Battleground )',
-  badge: 'Strongest Today', 
-  badgeClass: 'b-stable', 
-  filename: 'The Strongest Of Today.json', 
-  key: 'strongest_today' // Sửa key cho gọn và dễ map dữ liệu
-},
-    
-    { icon:'📋', name:'FFlag List (reference)', desc:'Full list of available fflag keys',
-      badge:'Txt', badgeClass:'b-link', filename:'list.txt', key:'list' },
-  ]},
-
-  /* ── MUSIC ──────────────────────────────────── */
-  music: { items: [
-    { icon:'🎻', name:'Giao hưởng phùng thank độ', desc:'Vietnamese classical vibes', badge:'YouTube', badgeClass:'b-link',
-      url:'https://youtu.be/ohz9EXtmVY8?si=0ZGpsVETDS4n3AeJ' },
-    { icon:'🎵', name:'Mozart Phonk?', desc:'The original page track', badge:'YouTube', badgeClass:'b-link',
-      url:'https://youtu.be/hwrt5O9IWlw?si=OPTEU7GeV6xxWAqu' },
-    { icon:'🏮', name:'Montagem Hongbao', desc:'Montagem track', badge:'YouTube', badgeClass:'b-link',
-      url:'https://youtu.be/8wUo-htFZCY?si=E6AFUtzq5P_7avMQ' },
-    { icon:'🕺', name:'Gogogaga Funk', desc:'Funk banger', badge:'YouTube', badgeClass:'b-link',
-      url:'https://youtu.be/J8yUuMWOLnY?si=o_m92SpGzc8F5NZg' },
-    { icon:'💎', name:'Cry For Me × Jackpot', desc:'Latest track', badge:'YouTube', badgeClass:'b-link',
-      url:'https://youtu.be/J7DOpglDWMk?si=6hJQMkpJbxnCRpq_' },
-  ]},
-};
-
-/* ══════════════════════════════════════════════════════════════════════
-   EMBEDDED FILES
-   ══════════════════════════════════════════════════════════════════════
-   Paste your JSON or text content between the backticks for each key.
-   The key here must match the `key` field in the fflags items above.
-   Also used by dlEmbed() on the download cards.
-
-   HOW TO ADD A NEW FILE:
-     1. Add a new entry:   newkey: { filename:'myfile.json', data:`PASTE HERE` }
-     2. Add a fflag item with key:'newkey'   (or a download card with dlEmbed(this,'newkey'))
-══════════════════════════════════════════════════════════════════════ */
-const EMBEDDED_FILES = {
-
-  fflag: {
-    filename: 'fflag.json',
-    // ↓↓↓ PASTE YOUR fflag.json CONTENT BETWEEN THESE BACKTICKS ↓↓↓
-    data: `{
-  "{
+        const EMBEDDED_FILES = {
+            fflag: {
+                filename: 'fflag.json',
+                data: `{
   "FFlagHandleAltEnterFullscreenManually": "False",
   "FLogNetwork": "7",
   "DFIntTaskSchedulerTargetFps": "10000",
@@ -591,7 +1298,7 @@ const EMBEDDED_FILES = {
   "DFStringAltTelegrafHTTPTransportUrl": "http://opt-out.roblox.com",
   "FFlagDebugDisableTelemetryPoint": "True",
   "DFStringAltHttpPointsReporterUrl": "http://opt-out.roblox.com",
-  "FStringPartTexturePackTablePre2022": "{\u0022foil\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[255,255,255,255]},\u0022brick\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[204,201,200,232]},\u0022cobblestone\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[212,200,187,250]},\u0022concrete\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[208,208,208,255]},\u0022diamondplate\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[170,170,170,255]},\u0022fabric\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[105,104,102,244]},\u0022glass\u0022:{\u0022ids\u0022:[\u0022rbxassetid://7547304948\u0022,\u0022rbxassetid://7546645118\u0022],\u0022color\u0022:[254,254,254,7]},\u0022granite\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[113,113,113,255]},\u0022grass\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[165,165,159,255]},\u0022ice\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[255,255,255,255]},\u0022marble\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[199,199,199,255]},\u0022metal\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[199,199,199,255]},\u0022pebble\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[208,208,208,255]},\u0022corrodedmetal\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[159,119,95,200]},\u0022sand\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[220,220,220,255]},\u0022slate\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[193,193,193,255]},\u0022wood\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[227,227,227,255]},\u0022woodplanks\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[212,209,203,255]},\u0022asphalt\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[123,123,123,234]},\u0022basalt\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[154,154,153,238]},\u0022crackedlava\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[74,78,80,156]},\u0022glacier\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[226,229,229,243]},\u0022ground\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[114,114,112,240]},\u0022leafygrass\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[121,117,113,234]},\u0022limestone\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[235,234,230,250]},\u0022mud\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[130,130,130,252]},\u0022pavement\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[142,142,144,236]},\u0022rock\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[154,154,154,248]},\u0022salt\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[220,220,221,255]},\u0022sandstone\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[174,171,169,246]},\u0022snow\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[218,218,218,255]}}",
+  "FStringPartTexturePackTablePre2022": "{\\"foil\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[255,255,255,255]},\\"brick\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[204,201,200,232]},\\"cobblestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[212,200,187,250]},\\"concrete\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[208,208,208,255]},\\"diamondplate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[170,170,170,255]},\\"fabric\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[105,104,102,244]},\\"glass\\":{\\"ids\\":[\\"rbxassetid://7547304948\\",\\"rbxassetid://7546645118\\"],\\"color\\":[254,254,254,7]},\\"granite\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[113,113,113,255]},\\"grass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[165,165,159,255]},\\"ice\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[255,255,255,255]},\\"marble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[199,199,199,255]},\\"metal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[199,199,199,255]},\\"pebble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[208,208,208,255]},\\"corrodedmetal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[159,119,95,200]},\\"sand\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[220,220,220,255]},\\"slate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[193,193,193,255]},\\"wood\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[227,227,227,255]},\\"woodplanks\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[212,209,203,255]},\\"asphalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[123,123,123,234]},\\"basalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[154,154,153,238]},\\"crackedlava\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[74,78,80,156]},\\"glacier\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[226,229,229,243]},\\"ground\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[114,114,112,240]},\\"leafygrass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[121,117,113,234]},\\"limestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[235,234,230,250]},\\"mud\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[130,130,130,252]},\\"pavement\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[142,142,144,236]},\\"rock\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[154,154,154,248]},\\"salt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[220,220,221,255]},\\"sandstone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[174,171,169,246]},\\"snow\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,218,218,255]}}",
   "DFFlagEnableFmodErrorsTelemetry": "False",
   "DFIntMaxProcessPacketsStepsAccumulated": "0",
   "FFlagDontCreatePingJob": "True",
@@ -610,7 +1317,7 @@ const EMBEDDED_FILES = {
   "FFlagDebugDisableTelemetryV2Stat": "True",
   "FFlagCommitToGraphicsQualityFix": "True",
   "FFlagDebugDisableTelemetryEventIngest": "True",
-  "FStringPartTexturePackTable2022": "{\u0022foil\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[238,238,238,255]},\u0022asphalt\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[227,227,228,234]},\u0022basalt\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[160,160,158,238]},\u0022brick\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[229,214,205,227]},\u0022cobblestone\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[218,219,219,243]},\u0022concrete\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[225,225,224,255]},\u0022crackedlava\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[76,79,81,156]},\u0022diamondplate\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[210,210,210,255]},\u0022fabric\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[221,221,221,255]},\u0022glacier\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[225,229,229,243]},\u0022glass\u0022:{\u0022ids\u0022:[\u0022rbxassetid://9873284556\u0022,\u0022rbxassetid://9438453972\u0022],\u0022color\u0022:[254,254,254,7]},\u0022granite\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[210,206,200,255]},\u0022grass\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[196,196,189,241]},\u0022ground\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[165,165,160,240]},\u0022ice\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[235,239,241,248]},\u0022leafygrass\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[182,178,175,234]},\u0022limestone\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[250,248,243,250]},\u0022marble\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[181,183,193,249]},\u0022metal\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[226,226,226,255]},\u0022mud\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[193,192,193,252]},\u0022pavement\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[218,218,219,236]},\u0022pebble\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[204,203,201,234]},\u0022plastic\u0022:{\u0022ids\u0022:[\u0022\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[255,255,255,255]},\u0022rock\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[211,211,210,248]},\u0022corrodedmetal\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[206,177,163,180]},\u0022salt\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[249,249,249,255]},\u0022sand\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[218,216,210,240]},\u0022sandstone\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[241,234,230,246]},\u0022slate\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[235,234,235,254]},\u0022snow\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[239,240,240,255]},\u0022wood\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[217,209,208,255]},\u0022woodplanks\u0022:{\u0022ids\u0022:[\u0022rbxassetid://0\u0022,\u0022rbxassetid://0\u0022],\u0022color\u0022:[207,208,206,254]}}",
+  "FStringPartTexturePackTable2022": "{\\"foil\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[238,238,238,255]},\\"asphalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[227,227,228,234]},\\"basalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[160,160,158,238]},\\"brick\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[229,214,205,227]},\\"cobblestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,219,219,243]},\\"concrete\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[225,225,224,255]},\\"crackedlava\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[76,79,81,156]},\\"diamondplate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[210,210,210,255]},\\"fabric\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[221,221,221,255]},\\"glacier\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[225,229,229,243]},\\"glass\\":{\\"ids\\":[\\"rbxassetid://9873284556\\",\\"rbxassetid://9438453972\\"],\\"color\\":[254,254,254,7]},\\"granite\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[210,206,200,255]},\\"grass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[196,196,189,241]},\\"ground\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[165,165,160,240]},\\"ice\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[235,239,241,248]},\\"leafygrass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[182,178,175,234]},\\"limestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[250,248,243,250]},\\"marble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[181,183,193,249]},\\"metal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[226,226,226,255]},\\"mud\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[193,192,193,252]},\\"pavement\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,218,219,236]},\\"pebble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[204,203,201,234]},\\"plastic\\":{\\"ids\\":[\\"\\",\\"rbxassetid://0\\"],\\"color\\":[255,255,255,255]},\\"rock\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[211,211,210,248]},\\"corrodedmetal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[206,177,163,180]},\\"salt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[249,249,249,255]},\\"sand\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,216,210,240]},\\"sandstone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[241,234,230,246]},\\"slate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[235,234,235,254]},\\"snow\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[239,240,240,255]},\\"wood\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[217,209,208,255]},\\"woodplanks\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[207,208,206,254]}}",
   "DFStringAnalyticsEventStreamUrlEndpoint": "opt-out",
   "FFlagReconnectDisabled": "True",
   "DFFlagRakNetUseSlidingWindow4": "True",
@@ -637,16 +1344,12 @@ const EMBEDDED_FILES = {
   "DFIntMaxFrameBufferSize": "4",
   "FFlagEnableAccessibilitySettingsAPIV2": "True",
   "FFlagDebugGraphicsDisableMetal": "true",
-  "FIntRobloxGuiBlurIntensity": "0",
-}": true
+  "FIntRobloxGuiBlurIntensity": "0"
 }`
-  },
-
-  custom1: {
-    filename: 'Best fflags.json',
-    // ↓↓↓ PASTE YOUR CustomFFLAGS.json CONTENT HERE ↓↓↓
-    data: `{
-  "{
+            },
+            custom1: {
+                filename: 'Best fflags.json',
+                data: `{
   "FFlagHandleAltEnterFullscreenManually": "False",
   "FLogNetwork": "4",
   "DFIntTaskSchedulerTargetFps": "10000",
@@ -722,7 +1425,6 @@ const EMBEDDED_FILES = {
   "FFlagEnableChromePinnedChat": "True",
   "FFlagEnableAccessibilitySettingsAPIV2": "True",
   "FIntRobloxGuiBlurIntensity": "0",
-
   "FStringPerformanceSendMeasurementAPISubdomain": "opt-out",
   "DFStringRobloxAnalyticsSubDomain": "opt-out",
   "DFStringTelegrafHTTPTransportUrl": "http://opt-out.roblox.com",
@@ -746,7 +1448,6 @@ const EMBEDDED_FILES = {
   "FFlagDebugDisableTelemetryV2Event": "True",
   "FFlagDebugDisableTelemetryV2Stat": "True",
   "FFlagDebugDisableTelemetryEventIngest": "True",
-
   "DFIntDebugFRMQualityLevelOverride": "1",
   "DFIntTextureQualityOverride": "0",
   "FIntRenderShadowIntensity": "0",
@@ -770,9 +1471,8 @@ const EMBEDDED_FILES = {
   "FIntTerrainOTAMaxTextureSize": "256",
   "FIntUITextureMaxRenderTextureSize": "512",
   "DFIntTextureCompositorActiveJobs": "1",
-  "FStringPartTexturePackTablePre2022": "{\"foil\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[255,255,255,255]},\"brick\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[204,201,200,232]},\"cobblestone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[212,200,187,250]},\"concrete\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[208,208,208,255]},\"diamondplate\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[170,170,170,255]},\"fabric\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[105,104,102,244]},\"glass\":{\"ids\":[\"rbxassetid://7547304948\",\"rbxassetid://7546645118\"],\"color\":[254,254,254,7]},\"granite\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[113,113,113,255]},\"grass\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[165,165,159,255]},\"ice\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[255,255,255,255]},\"marble\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[199,199,199,255]},\"metal\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[199,199,199,255]},\"pebble\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[208,208,208,255]},\"corrodedmetal\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[159,119,95,200]},\"sand\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[220,220,220,255]},\"slate\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[193,193,193,255]},\"wood\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[227,227,227,255]},\"woodplanks\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[212,209,203,255]},\"asphalt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[123,123,123,234]},\"basalt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[154,154,153,238]},\"crackedlava\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[74,78,80,156]},\"glacier\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[226,229,229,243]},\"ground\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[114,114,112,240]},\"leafygrass\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[121,117,113,234]},\"limestone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[235,234,230,250]},\"mud\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[130,130,130,252]},\"pavement\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[142,142,144,236]},\"rock\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[154,154,154,248]},\"salt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[220,220,221,255]},\"sandstone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[174,171,169,246]},\"snow\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[218,218,218,255]}}",
-  "FStringPartTexturePackTable2022": "{\"foil\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[238,238,238,255]},\"asphalt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[227,227,228,234]},\"basalt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[160,160,158,238]},\"brick\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[229,214,205,227]},\"cobblestone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[218,219,219,243]},\"concrete\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[225,225,224,255]},\"crackedlava\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[76,79,81,156]},\"diamondplate\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[210,210,210,255]},\"fabric\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[221,221,221,255]},\"glacier\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[225,229,229,243]},\"glass\":{\"ids\":[\"rbxassetid://9873284556\",\"rbxassetid://9438453972\"],\"color\":[254,254,254,7]},\"granite\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[210,206,200,255]},\"grass\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[196,196,189,241]},\"ground\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[165,165,160,240]},\"ice\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[235,239,241,248]},\"leafygrass\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[182,178,175,234]},\"limestone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[250,248,243,250]},\"marble\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[181,183,193,249]},\"metal\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[226,226,226,255]},\"mud\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[193,192,193,252]},\"pavement\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[218,218,219,236]},\"pebble\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[204,203,201,234]},\"plastic\":{\"ids\":[\"\",\"rbxassetid://0\"],\"color\":[255,255,255,255]},\"rock\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[211,211,210,248]},\"corrodedmetal\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[206,177,163,180]},\"salt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[249,249,249,255]},\"sand\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[218,216,210,240]},\"sandstone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[241,234,230,246]},\"slate\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[235,234,235,254]},\"snow\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[239,240,240,255]},\"wood\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[217,209,208,255]},\"woodplanks\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[207,208,206,254]}}",
-
+  "FStringPartTexturePackTablePre2022": "{\\"foil\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[255,255,255,255]},\\"brick\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[204,201,200,232]},\\"cobblestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[212,200,187,250]},\\"concrete\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[208,208,208,255]},\\"diamondplate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[170,170,170,255]},\\"fabric\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[105,104,102,244]},\\"glass\\":{\\"ids\\":[\\"rbxassetid://7547304948\\",\\"rbxassetid://7546645118\\"],\\"color\\":[254,254,254,7]},\\"granite\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[113,113,113,255]},\\"grass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[165,165,159,255]},\\"ice\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[255,255,255,255]},\\"marble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[199,199,199,255]},\\"metal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[199,199,199,255]},\\"pebble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[208,208,208,255]},\\"corrodedmetal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[159,119,95,200]},\\"sand\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[220,220,220,255]},\\"slate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[193,193,193,255]},\\"wood\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[227,227,227,255]},\\"woodplanks\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[212,209,203,255]},\\"asphalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[123,123,123,234]},\\"basalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[154,154,153,238]},\\"crackedlava\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[74,78,80,156]},\\"glacier\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[226,229,229,243]},\\"ground\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[114,114,112,240]},\\"leafygrass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[121,117,113,234]},\\"limestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[235,234,230,250]},\\"mud\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[130,130,130,252]},\\"pavement\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[142,142,144,236]},\\"rock\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[154,154,154,248]},\\"salt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[220,220,221,255]},\\"sandstone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[174,171,169,246]},\\"snow\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,218,218,255]}}",
+  "FStringPartTexturePackTable2022": "{\\"foil\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[238,238,238,255]},\\"asphalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[227,227,228,234]},\\"basalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[160,160,158,238]},\\"brick\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[229,214,205,227]},\\"cobblestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,219,219,243]},\\"concrete\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[225,225,224,255]},\\"crackedlava\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[76,79,81,156]},\\"diamondplate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[210,210,210,255]},\\"fabric\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[221,221,221,255]},\\"glacier\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[225,229,229,243]},\\"glass\\":{\\"ids\\":[\\"rbxassetid://9873284556\\",\\"rbxassetid://9438453972\\"],\\"color\\":[254,254,254,7]},\\"granite\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[210,206,200,255]},\\"grass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[196,196,189,241]},\\"ground\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[165,165,160,240]},\\"ice\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[235,239,241,248]},\\"leafygrass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[182,178,175,234]},\\"limestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[250,248,243,250]},\\"marble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[181,183,193,249]},\\"metal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[226,226,226,255]},\\"mud\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[193,192,193,252]},\\"pavement\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,218,219,236]},\\"pebble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[204,203,201,234]},\\"plastic\\":{\\"ids\\":[\\"\\",\\"rbxassetid://0\\"],\\"color\\":[255,255,255,255]},\\"rock\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[211,211,210,248]},\\"corrodedmetal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[206,177,163,180]},\\"salt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[249,249,249,255]},\\"sand\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,216,210,240]},\\"sandstone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[241,234,230,246]},\\"slate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[235,234,235,254]},\\"snow\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[239,240,240,255]},\\"wood\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[217,209,208,255]},\\"woodplanks\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[207,208,206,254]}}",
   "_SECTION_RAKNET": "=== RAKNET ===",
   "DFFlagRakNetUseSlidingWindow4": "True",
   "DFIntRakNetSlidingWindowMinThreshold": "64",
@@ -785,7 +1485,6 @@ const EMBEDDED_FILES = {
   "FIntRakNetResendBufferArrayLength": "1024",
   "FIntRakNetDatagramMessageIdArrayLength": "1024",
   "DFIntRaknetBandwidthInfluxHundredthsPercentageV2": "10000",
-
   "_SECTION_PHYSICS_HITBOX": "=== PHYSICS & HITBOX SYNC ===",
   "DFIntPhysicsFPSCap": "1000",
   "DFIntPhysicsReceiveNumPacketsPerStep": "128",
@@ -799,7 +1498,6 @@ const EMBEDDED_FILES = {
   "DFIntMaxMissedWorldStepsRemembered": "8",
   "DFIntPhysicsPacketMaxSteps": "8",
   "DFIntExtrapolationThresholdSecs100": "5",
-
   "_SECTION_REPLICATION": "=== CHARACTER & WORLD REPLICATION ===",
   "DFIntSimSendMaxBundledStatePackets": "512",
   "DFIntNetworkReplicatorMaxPacketSize": "1400",
@@ -815,7 +1513,6 @@ const EMBEDDED_FILES = {
   "FFlagG3DComputeMouseHover": "True",
   "FFlagDirectInputMouseLocation": "True",
   "FIntSmoothScrollMaxVelocity": "0",
-
   "_SECTION_INPUT": "=== SUPER FAST INPUT ===",
   "FFlagGraphicsVulkanLowLatency": "True",
   "FFlagDebugD3D11LowLatency": "True",
@@ -823,7 +1520,6 @@ const EMBEDDED_FILES = {
   "FFlagEnableInertialScrolling": "False",
   "FIntMouseDeltaSensitivity": "100",
   "FFlagHandleAltEnterFullscreenManually": "False",
-
   "_SECTION_SCHEDULER": "=== TASK SCHEDULER ===",
   "DFIntTaskSchedulerTargetFps": "10000",
   "FFlagTaskSchedulerLimitTargetFpsTo2402": "False",
@@ -831,7 +1527,6 @@ const EMBEDDED_FILES = {
   "DFIntServerTickRate": "60",
   "FIntTaskSchedulerAutoThreadCount": "1",
   "DFIntPriorityTickRatePhysX": "480",
-
   "_SECTION_MEMORY": "=== MEMORY & CACHE ===",
   "FIntDefaultMeshCacheSizeMB": "512",
   "FIntMeshContentProviderForceCacheSize": "536870912",
@@ -843,15 +1538,11 @@ const EMBEDDED_FILES = {
   "FFlagBatchAssetApi": "True",
   "FFlagPreloadAllFonts": "True",
   "FFlagPreloadTextureItemsOption4": "True"
-}": true
 }`
-  },
-
-  custom2: {
-    filename: 'CustomFFLAGS-Copy.json',
-    // ↓↓↓ PASTE YOUR CustomFFLAGS-Copy.json CONTENT HERE ↓↓↓
-    data: `{
-  "{
+            },
+            custom2: {
+                filename: 'CustomFFLAGS-Copy.json',
+                data: `{
   "FFlagUISUseLastFrameTimeInUpdateInputSignal": "True",
   "FFlagFasterPreciseTime4": "True",
   "FFlagOptimizeNetworkTransport": "True",
@@ -865,13 +1556,11 @@ const EMBEDDED_FILES = {
   "FFlagEnableChromePinnedChat": "True",
   "FFlagChatTranslationSettingEnabled3": "False",
   "FFlagLuaAppExitModalDoNotShow": "True",
-
   "DFIntTaskSchedulerTargetFps": "10000",
   "FFlagTaskSchedulerLimitTargetFpsTo2402": "False",
   "FFlagOptimizeServerTickRate": "True",
   "DFIntServerTickRate": "60",
   "FIntTaskSchedulerAutoThreadCount": "1",
-
   "DFFlagDisableDPIScale": "True",
   "FFlagFixGraphicsQuality": "True",
   "FFlagCommitToGraphicsQualityFix": "True",
@@ -891,7 +1580,6 @@ const EMBEDDED_FILES = {
   "FIntRenderLocalLightUpdatesMin": "1",
   "FIntRenderLocalLightFadeSpeed": "1",
   "DFFlagDebugRenderForceTechnologyVoxel": "True",
-
   "DFIntCSGLevelOfDetailSwitchingDistance": "1",
   "DFIntCSGLevelOfDetailSwitchingDistanceL12": "2",
   "DFIntCSGLevelOfDetailSwitchingDistanceL23": "3",
@@ -902,16 +1590,13 @@ const EMBEDDED_FILES = {
   "FIntTerrainOTAMaxTextureSize": "256",
   "FIntUITextureMaxRenderTextureSize": "512",
   "DFIntTextureCompositorActiveJobs": "1",
-
-  "FStringPartTexturePackTablePre2022": "{\"foil\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[255,255,255,255]},\"brick\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[204,201,200,232]},\"cobblestone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[212,200,187,250]},\"concrete\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[208,208,208,255]},\"diamondplate\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[170,170,170,255]},\"fabric\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[105,104,102,244]},\"glass\":{\"ids\":[\"rbxassetid://7547304948\",\"rbxassetid://7546645118\"],\"color\":[254,254,254,7]},\"granite\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[113,113,113,255]},\"grass\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[165,165,159,255]},\"ice\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[255,255,255,255]},\"marble\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[199,199,199,255]},\"metal\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[199,199,199,255]},\"pebble\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[208,208,208,255]},\"corrodedmetal\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[159,119,95,200]},\"sand\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[220,220,220,255]},\"slate\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[193,193,193,255]},\"wood\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[227,227,227,255]},\"woodplanks\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[212,209,203,255]},\"asphalt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[123,123,123,234]},\"basalt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[154,154,153,238]},\"crackedlava\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[74,78,80,156]},\"glacier\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[226,229,229,243]},\"ground\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[114,114,112,240]},\"leafygrass\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[121,117,113,234]},\"limestone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[235,234,230,250]},\"mud\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[130,130,130,252]},\"pavement\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[142,142,144,236]},\"rock\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[154,154,154,248]},\"salt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[220,220,221,255]},\"sandstone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[174,171,169,246]},\"snow\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[218,218,218,255]}}",
-  "FStringPartTexturePackTable2022": "{\"foil\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[238,238,238,255]},\"asphalt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[227,227,228,234]},\"basalt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[160,160,158,238]},\"brick\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[229,214,205,227]},\"cobblestone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[218,219,219,243]},\"concrete\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[225,225,224,255]},\"crackedlava\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[76,79,81,156]},\"diamondplate\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[210,210,210,255]},\"fabric\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[221,221,221,255]},\"glacier\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[225,229,229,243]},\"glass\":{\"ids\":[\"rbxassetid://9873284556\",\"rbxassetid://9438453972\"],\"color\":[254,254,254,7]},\"granite\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[210,206,200,255]},\"grass\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[196,196,189,241]},\"ground\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[165,165,160,240]},\"ice\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[235,239,241,248]},\"leafygrass\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[182,178,175,234]},\"limestone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[250,248,243,250]},\"marble\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[181,183,193,249]},\"metal\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[226,226,226,255]},\"mud\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[193,192,193,252]},\"pavement\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[218,218,219,236]},\"pebble\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[204,203,201,234]},\"plastic\":{\"ids\":[\"\",\"rbxassetid://0\"],\"color\":[255,255,255,255]},\"rock\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[211,211,210,248]},\"corrodedmetal\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[206,177,163,180]},\"salt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[249,249,249,255]},\"sand\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[218,216,210,240]},\"sandstone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[241,234,230,246]},\"slate\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[235,234,235,254]},\"snow\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[239,240,240,255]},\"wood\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[217,209,208,255]},\"woodplanks\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[207,208,206,254]}}",
-
+  "FStringPartTexturePackTablePre2022": "{\\"foil\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[255,255,255,255]},\\"brick\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[204,201,200,232]},\\"cobblestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[212,200,187,250]},\\"concrete\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[208,208,208,255]},\\"diamondplate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[170,170,170,255]},\\"fabric\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[105,104,102,244]},\\"glass\\":{\\"ids\\":[\\"rbxassetid://7547304948\\",\\"rbxassetid://7546645118\\"],\\"color\\":[254,254,254,7]},\\"granite\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[113,113,113,255]},\\"grass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[165,165,159,255]},\\"ice\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[255,255,255,255]},\\"marble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[199,199,199,255]},\\"metal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[199,199,199,255]},\\"pebble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[208,208,208,255]},\\"corrodedmetal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[159,119,95,200]},\\"sand\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[220,220,220,255]},\\"slate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[193,193,193,255]},\\"wood\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[227,227,227,255]},\\"woodplanks\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[212,209,203,255]},\\"asphalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[123,123,123,234]},\\"basalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[154,154,153,238]},\\"crackedlava\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[74,78,80,156]},\\"glacier\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[226,229,229,243]},\\"ground\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[114,114,112,240]},\\"leafygrass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[121,117,113,234]},\\"limestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[235,234,230,250]},\\"mud\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[130,130,130,252]},\\"pavement\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[142,142,144,236]},\\"rock\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[154,154,154,248]},\\"salt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[220,220,221,255]},\\"sandstone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[174,171,169,246]},\\"snow\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,218,218,255]}}",
+  "FStringPartTexturePackTable2022": "{\\"foil\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[238,238,238,255]},\\"asphalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[227,227,228,234]},\\"basalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[160,160,158,238]},\\"brick\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[229,214,205,227]},\\"cobblestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,219,219,243]},\\"concrete\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[225,225,224,255]},\\"crackedlava\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[76,79,81,156]},\\"diamondplate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[210,210,210,255]},\\"fabric\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[221,221,221,255]},\\"glacier\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[225,229,229,243]},\\"glass\\":{\\"ids\\":[\\"rbxassetid://9873284556\\",\\"rbxassetid://9438453972\\"],\\"color\\":[254,254,254,7]},\\"granite\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[210,206,200,255]},\\"grass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[196,196,189,241]},\\"ground\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[165,165,160,240]},\\"ice\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[235,239,241,248]},\\"leafygrass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[182,178,175,234]},\\"limestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[250,248,243,250]},\\"marble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[181,183,193,249]},\\"metal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[226,226,226,255]},\\"mud\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[193,192,193,252]},\\"pavement\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,218,219,236]},\\"pebble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[204,203,201,234]},\\"plastic\\":{\\"ids\\":[\\"\\",\\"rbxassetid://0\\"],\\"color\\":[255,255,255,255]},\\"rock\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[211,211,210,248]},\\"corrodedmetal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[206,177,163,180]},\\"salt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[249,249,249,255]},\\"sand\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,216,210,240]},\\"sandstone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[241,234,230,246]},\\"slate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[235,234,235,254]},\\"snow\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[239,240,240,255]},\\"wood\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[217,209,208,255]},\\"woodplanks\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[207,208,206,254]}}",
   "FFlagGraphicsVulkanLowLatency": "True",
   "FFlagDebugD3D11LowLatency": "True",
   "FFlagG3DComputeMouseHover": "True",
   "FFlagDirectInputMouseLocation": "True",
   "DFIntMaxFrameBufferSize": "1",
-
   "FFlagPreloadAllFonts": "True",
   "FFlagGpuGeometryManager7": "True",
   "FFlagAnimationClipMemCacheEnabled": "True",
@@ -919,14 +1604,12 @@ const EMBEDDED_FILES = {
   "FFlagBatchAssetApi": "True",
   "FFlagRenderGpuTextureCompressor": "True",
   "FFlagPreloadTextureItemsOption4": "True",
-
   "FIntDefaultMeshCacheSizeMB": "512",
   "FIntMeshContentProviderForceCacheSize": "536870912",
   "DFIntUserIdPlayerNameCacheSize": "33554432",
   "DFIntUserIdPlayerNameLifetimeSeconds": "86400",
   "FIntEmotesAnimationsPerPlayerCacheSize": "16777216",
   "DFIntHttpCurlConnectionCacheSize": "134217728",
-
   "FLogNetwork": "4",
   "DFFlagQueueDataPingFromSendData": "True",
   "DFIntConnectionMTUSize": "1472",
@@ -947,7 +1630,6 @@ const EMBEDDED_FILES = {
   "FIntRakNetDatagramMessageIdArrayLength": "1024",
   "DFIntRaknetBandwidthInfluxHundredthsPercentageV2": "10000",
   "DFIntMaxReceiveToDeserializeLatencyMilliseconds": "10",
-
   "DFIntPhysicsFPSCap": "10000",
   "DFIntPhysicsReceiveNumPacketsPerStep": "64",
   "DFIntPhysicsSendNumPacketsPerStep": "64",
@@ -961,7 +1643,6 @@ const EMBEDDED_FILES = {
   "DFIntPhysicsPacketMaxSteps": "6",
   "DFIntExtrapolationThresholdSecs100": "15",
   "DFIntPhysicsGridMinUpdateRate": "240",
-
   "DFIntSimSendMaxBundledStatePackets": "300",
   "DFIntNetworkReplicatorMaxPacketSize": "900",
   "DFIntNetworkPredictionAllowedLerpMs": "100",
@@ -973,7 +1654,6 @@ const EMBEDDED_FILES = {
   "DFIntMaxProcessPacketsStepsAccumulated": "0",
   "DFIntCodecMaxOutgoingFrames": "10000",
   "DFIntRemoteEventSingleInvocationSizeLimit": "100000",
-
   "FStringPerformanceSendMeasurementAPISubdomain": "opt-out",
   "DFStringRobloxAnalyticsSubDomain": "opt-out",
   "DFStringTelegrafHTTPTransportUrl": "http://opt-out.roblox.com",
@@ -996,15 +1676,11 @@ const EMBEDDED_FILES = {
   "FFlagDebugDisableTelemetryV2Event": "True",
   "FFlagDebugDisableTelemetryV2Stat": "True",
   "FFlagDebugDisableTelemetryEventIngest": "True"
-}": true
 }`
-  },
-
-  fusion: {
-    filename: 'broken.json',
-    // ↓↓↓ PASTE YOUR broken.json CONTENT HERE ↓↓↓
-    data: `{
-  "{
+            },
+            fusion: {
+                filename: 'broken.json',
+                data: `{
   "DFIntTaskSchedulerTargetFps": "10000",
   "FFlagTaskSchedulerLimitTargetFpsTo2402": "False",
   "DFFlagDisableDPIScale": "True",
@@ -1014,7 +1690,6 @@ const EMBEDDED_FILES = {
   "FIntRenderShadowIntensity": "0",
   "DFFlagDebugRenderForceTechnologyVoxel": "True",
   "FIntDebugForceMSAASamples": "1",
-
   "DFIntOptimizePingThreshold": "50",
   "DFIntNetworkPrediction": "120",
   "DFIntMinimalNetworkPrediction": "1",
@@ -1022,16 +1697,13 @@ const EMBEDDED_FILES = {
   "DFIntClientPacketMaxDelayMs": "1",
   "DFIntMaxProcessPacketsJobScaling": "10000",
   "DFIntCodecMaxOutgoingFrames": "10000",
-
   "FFlagOptimizeNetworkRouting": "True",
   "FFlagOptimizeNetworkTransport": "True",
   "FFlagOptimizeServerTickRate": "True",
-  
   "FIntRuntimeMaxNumOfThreads": "2400",
   "DFIntPhysicsReceiveNumParallelTasks": "6",
   "DFIntNetworkClusterPacketCacheNumParallelTasks": "6",
   "DFIntMegaReplicatorNetworkQualityProcessorUnit": "10",
-
   "DFStringRobloxAnalyticsURL": "http://opt-out.roblox.com",
   "DFStringTelegrafHTTPTransportUrl": "http://opt-out.roblox.com",
   "DFStringCrashUploadToBacktraceBaseUrl": "http://opt-out.roblox.com",
@@ -1039,7 +1711,6 @@ const EMBEDDED_FILES = {
   "FStringPerformanceSendMeasurementAPISubdomain": "opt-out",
   "FFlagDebugDisableTelemetryEventIngest": "True",
   "FFlagDebugDisableTelemetryV2Stat": "True",
-
   "DFIntPhysicsFPSCap": "1000",
   "DFIntPhysicsReceiveNumPacketsPerStep": "64",
   "DFIntPhysicsSendNumPacketsPerStep": "64",
@@ -1052,31 +1723,26 @@ const EMBEDDED_FILES = {
   "DFIntMaxMissedWorldStepsRemembered": "4",
   "DFIntPhysicsPacketMaxSteps": "6",
   "DFIntExtrapolationThresholdSecs100": "15",
-
   "DFIntInterpolationDtLimitForLod": "10",
   "DFIntInterpolationFrameRotVelocityThresholdMillionth": "1",
   "DFIntInterpolationFrameVelocityThresholdMillionth": "1",
   "DFIntInterpolationNumParallelTasks": "6",
   "FIntInterpolationMaxDelayMSec": "75",
   "FIntInterpolationAwareTargetTimeLerpHundredth": "110",
-
   "FIntMaxTimestepMultiplierIntegrationError": "4",
   "FIntMaxTimestepMultiplierVelocity": "6",
   "FIntMaxTimestepMultiplierAcceleration": "7",
   "FIntMaxTimestepMultiplierHumanoid": "16",
-
   "SFFlagGroundControllerTurningResponsiveness": "2147483647",
   "SFFlagGroundControllerBalancingResponsiveness": "2147483647",
   "SFFlagAirControllerTurningResponsiveness": "2147483647",
   "SFFlagAirControllerBalancingResponsiveness": "2147483647",
   "DFIntAirControllerTurningResponsiveness": "2147483647",
-
   "FIntSmoothMouseSpringFrequencyTenths": "200",
   "FFlagEarlyUpdateBoundings": "True",
   "DFFlagNetworkHumanoidStatePropertyReplication3": "True",
   "FFlagAnimatorRetargetSkipLowerBodyIK": "True",
   "DFIntTimestepArbiterAccelerationModelFactorThou": "50000",
-
   "FFlagUISUseLastFrameTimeInUpdateInputSignal": "True",
   "FFlagFasterPreciseTime4": "True",
   "FFlagDirectInputMouseLocation": "True",
@@ -1085,14 +1751,11 @@ const EMBEDDED_FILES = {
   "FFlagDebugD3D11LowLatency": "True",
   "DFIntMaxFrameBufferSize": "1",
   "DFIntPriorityTickRatePhysX": "240"
-}": true
 }`
-  },
-
-  list: {
-    filename: 'list.txt',
-    // ↓↓↓ PASTE YOUR list.txt CONTENT HERE ↓↓↓
-    data: `---\\144fps+0ping
+            },
+            list: {
+                filename: 'list.txt',
+                data: `---\\144fps+0ping
 {
   "FLogNetwork": "7",
   "FFlagHandleAltEnterFullscreenManually": "False",
@@ -1345,7 +2008,6 @@ const EMBEDDED_FILES = {
 
 ---\\240 fps + lower ping 
 {
- 
   "FIntDirectionalAttenuationMaxPoints": "0",
   "FIntCameraMaxZoomDistance": "2147483647",
   "FIntRenderMeshOptimizeVertexBuffer": "1",
@@ -1535,116 +2197,116 @@ const EMBEDDED_FILES = {
   "DFFlagVisBugFixPartUpdatedLock": "True",
   "DFIntCanHideGuiGroupId": "32380007",
   "DFFlagEnableTexturePreloading": "True",
-    "DFFlagSampleAndRefreshRakPing": "True",
-    "DFFlagTaskSchedulerAvoidSleep": "True",
-    "DFFlagDebugSkipMeshVoxelizer": "True",
-    "DFFlagEnableMeshPreloading2": "True",
-    "DFFlagEnableSoundPreloading": "True",
-    "DFFlagDebugPauseVoxelizer": "True",
-    "DFFlagSimOptimizeSetSize": "True",
-    "DFFlagDebugPerfMode": "True",
-    "DFFlagRobloxTelemetryAddDeviceRAM": "False",
-    "DFFlagDebugOverrideDPIScale": "False",
-    "DFFlagDisableDPIScale": "False",
-    "FFlagRenderInstanceClusterRetryPartInvalidationWhenMeshNotReady4": "False",
-    "FFlagEnablePartyVoiceOnlyForUnfilteredThreads": "False",
-    "FFlagEnablePartyVoiceOnlyForEligibleUsers": "False",
-    "FFlagUserCameraControlLastInputTypeUpdate": "False",
-    "FFlagContentProviderPreloadHangTelemetry": "False",
-    "FFlagChatTranslationEnableSystemMessage": "False",
-    "FFlagTaskSchedulerLimitTargetFpsTo2402": "False",
-    "FFlagHandleAltEnterFullscreenManually": "False",
-    "FFlagBetaBadgeLearnMoreLinkFormview": "False",
-    "FFlagEnablePreferredTextSizeStyleFixesInAppShell3": "True",
-    "FFlagEnablePreferredTextSizeStyleFixesInAvatarExp": "True",
-    "FFlagEnablePreferredTextSizeSettingInMenus2": "True",
-    "FFlagDebugDisableTelemetryEphemeralCounter": "True",
-    "FFlagVideoServiceAddHardwareCodecMetrics": "True",
-    "FFlagDebugDisableTelemetryEphemeralStat": "True",
-    "FFlagRenderLegacyShadowsQualityRefactor": "True",
-    "FFlagEnablePreferredTextSizeGuiService": "True",
-    "FFlagDebugDisableTelemetryEventIngest": "True",
-    "FFlagDebugEnableDirectAudioOcclusion2": "True",
-    "FFlagDebugDisableTelemetryV2Counter": "True",
-    "FFlagUserSoundsUseRelativeVelocity2": "True",
-    "FFlagDebugDisableTelemetryV2Event": "True",
-    "FFlagDebugForceFSMCPULightCulling": "True",
-    "FFlagDebugGraphicsPreferD3D11FL10": "True",
-    "FFlagEnablePreferredTextSizeScale": "True",
-    "FFlagDebugDisableTelemetryV2Stat": "True",
-    "FFlagUserBetterInertialScrolling": "True",
-    "FFlagDebugDisableTelemetryPoint": "True",
-    "FFlagGraphicsEnableD3D10Compute": "True",
-    "FFlagImproveShiftLockTransition": "True",
-    "FFlagMessageBusCallOptimization": "True",
-    "FFlagPreloadTextureItemsOption4": "True",
-    "FFlagDebugCheckRenderThreading": "True",
-    "FFlagHighlightOutlinesOnMobile": "True",
-    "FFlagSoundsUsePhysicalVelocity": "True",
-    "FFlagQuaternionPoseCorrection": "True",
-    "FFlagLuaMenuPerfImprovements": "True",
-    "FFlagLoginPageOptimizedPngs": "True",
-    "FFlagUserShowGuiHideToggles": "True",
-    "FFlagDebugForceGenerateHSR": "True",
-    "FFlagFastGPULightCulling3": "True",
-    "FFlagNewLightAttenuation": "True",
-    "FFlagAssetPreloadingIXP": "True",
-    "FFlagPreloadAllFonts": "True",
-    "FFlagDisablePostFx": "True",
-    "FFlagLuauCodegen": "True",
-    "FFlagDisableFeedbackSoothsayerCheck": "False",
-    "FFlagEnableInGameMenuDurationLogger": "False",
-    "FFlagFixSensitivityTextPrecision": "False",
-    "FFlagRenderSkipReadingShaderData": "False",
-    "FFlagControlBetaBadgeWithGuac": "False",
-    "FFlagShaderLightingRefactor": "False",
-    "FFlagRenderFixGrassPrepass": "False",
-    "FFlagAlwaysShowVRToggleV3": "False",
-    "FFlagRenderNoLowFrmBloom": "False",
-    "FFlagShoeSkipRenderMesh": "False",
-    "FFlagAddHapticsToggle": "False",
-    "FFlagDebugSSAOForce": "False",
-    "FFlagVoiceBetaBadge": "False",
-    "FFlagAddDMLogging": "False",
-    "FFlagFRMRefactor": "False",
-    "DFIntContentProviderPreloadHangTelemetryHundredthsPercentage": "0",
-    "DFIntTeleportClientAssetPreloadingHundredthsPercentage2": "100000",
-    "DFIntTeleportClientAssetPreloadingHundredthsPercentage": "100000",
-    "DFIntMemoryUtilityCurveBaseHundrethsPercent": "10000",
-    "DFIntTrackCountryRegionAPIHundredthsPercent": "10000",
-    "DFIntHACDPointSampleDistApartTenths": "2147483647",
-    "DFIntAnimationLodFacsVisibilityDenominator": "0",
-    "DFIntCSGLevelOfDetailSwitchingDistanceL12": "0",
-    "DFIntCSGLevelOfDetailSwitchingDistanceL23": "0",
-    "DFIntCSGLevelOfDetailSwitchingDistanceL34": "0",
-    "DFIntMemoryUtilityCurveTotalMemoryReserve": "0",
-    "DFIntAudioOcclusionMaxNumQueriesPerFrame": "6",
-    "DFIntAudioOcclusionMaxPiercedPrimitives": "6",
-    "DFIntOcclusionFresnelConsensusNumerator": "2",
-    "DFIntMemoryUtilityCurveNumSegments": "100",
-    "DFIntNumAssetsMaxToPreload": "2147483647",
-    "DFIntSoundVelocitySmoothingNewRatio": "2",
-    "DFIntSoundVelocitySmoothingOldRatio": "5",
-    "DFIntOcclusionShelfScalarNumerator": "2",
-    "DFIntOcclusionGainScalarNumerator": "2",
-    "DFIntPreloadAvatarAssets": "2147483647",
-    "DFIntAnimationLodFacsDistanceMax": "0",
-    "DFIntAnimationLodFacsDistanceMin": "0",
-    "DFIntAudioOcclusionUpdateRateMs": "2",
-    "DFIntOcclusionFresnelEllipsoids": "6",
-    "DFIntAssetPreloading": "2147483647",
-    "DFIntCanHideGuiGroupId": "32380007",
-    "DFIntTaskSchedulerTargetFps": "240",
-    "DFIntTextureQualityOverride": "0",
-    "DFIntS2PhysicsSenderRate": "128",
-    "DFIntMaxFrameBufferSize": "4",
-    "DFIntCharacterLoadTime": "1",
-    "FIntPreferredTextSizeSettingBetaFeatureRolloutPercent": "100",
-    "FIntV1MenuLanguageSelectionFeaturePerMillageRollout": "0",
-    "FIntFullscreenTitleBarTriggerDelayMillis": "3600000",
-    "FIntRenderMaxShadowAtlasUsageBeforeDownscale": "0",
-    "FIntDebugFRMOptionalMSAALevelOverride": "0",
-    "FIntGrassMovementReducedMotionFactor": "0",
+  "DFFlagSampleAndRefreshRakPing": "True",
+  "DFFlagTaskSchedulerAvoidSleep": "True",
+  "DFFlagDebugSkipMeshVoxelizer": "True",
+  "DFFlagEnableMeshPreloading2": "True",
+  "DFFlagEnableSoundPreloading": "True",
+  "DFFlagDebugPauseVoxelizer": "True",
+  "DFFlagSimOptimizeSetSize": "True",
+  "DFFlagDebugPerfMode": "True",
+  "DFFlagRobloxTelemetryAddDeviceRAM": "False",
+  "DFFlagDebugOverrideDPIScale": "False",
+  "DFFlagDisableDPIScale": "False",
+  "FFlagRenderInstanceClusterRetryPartInvalidationWhenMeshNotReady4": "False",
+  "FFlagEnablePartyVoiceOnlyForUnfilteredThreads": "False",
+  "FFlagEnablePartyVoiceOnlyForEligibleUsers": "False",
+  "FFlagUserCameraControlLastInputTypeUpdate": "False",
+  "FFlagContentProviderPreloadHangTelemetry": "False",
+  "FFlagChatTranslationEnableSystemMessage": "False",
+  "FFlagTaskSchedulerLimitTargetFpsTo2402": "False",
+  "FFlagHandleAltEnterFullscreenManually": "False",
+  "FFlagBetaBadgeLearnMoreLinkFormview": "False",
+  "FFlagEnablePreferredTextSizeStyleFixesInAppShell3": "True",
+  "FFlagEnablePreferredTextSizeStyleFixesInAvatarExp": "True",
+  "FFlagEnablePreferredTextSizeSettingInMenus2": "True",
+  "FFlagDebugDisableTelemetryEphemeralCounter": "True",
+  "FFlagVideoServiceAddHardwareCodecMetrics": "True",
+  "FFlagDebugDisableTelemetryEphemeralStat": "True",
+  "FFlagRenderLegacyShadowsQualityRefactor": "True",
+  "FFlagEnablePreferredTextSizeGuiService": "True",
+  "FFlagDebugDisableTelemetryEventIngest": "True",
+  "FFlagDebugEnableDirectAudioOcclusion2": "True",
+  "FFlagDebugDisableTelemetryV2Counter": "True",
+  "FFlagUserSoundsUseRelativeVelocity2": "True",
+  "FFlagDebugDisableTelemetryV2Event": "True",
+  "FFlagDebugForceFSMCPULightCulling": "True",
+  "FFlagDebugGraphicsPreferD3D11FL10": "True",
+  "FFlagEnablePreferredTextSizeScale": "True",
+  "FFlagDebugDisableTelemetryV2Stat": "True",
+  "FFlagUserBetterInertialScrolling": "True",
+  "FFlagDebugDisableTelemetryPoint": "True",
+  "FFlagGraphicsEnableD3D10Compute": "True",
+  "FFlagImproveShiftLockTransition": "True",
+  "FFlagMessageBusCallOptimization": "True",
+  "FFlagPreloadTextureItemsOption4": "True",
+  "FFlagDebugCheckRenderThreading": "True",
+  "FFlagHighlightOutlinesOnMobile": "True",
+  "FFlagSoundsUsePhysicalVelocity": "True",
+  "FFlagQuaternionPoseCorrection": "True",
+  "FFlagLuaMenuPerfImprovements": "True",
+  "FFlagLoginPageOptimizedPngs": "True",
+  "FFlagUserShowGuiHideToggles": "True",
+  "FFlagDebugForceGenerateHSR": "True",
+  "FFlagFastGPULightCulling3": "True",
+  "FFlagNewLightAttenuation": "True",
+  "FFlagAssetPreloadingIXP": "True",
+  "FFlagPreloadAllFonts": "True",
+  "FFlagDisablePostFx": "True",
+  "FFlagLuauCodegen": "True",
+  "FFlagDisableFeedbackSoothsayerCheck": "False",
+  "FFlagEnableInGameMenuDurationLogger": "False",
+  "FFlagFixSensitivityTextPrecision": "False",
+  "FFlagRenderSkipReadingShaderData": "False",
+  "FFlagControlBetaBadgeWithGuac": "False",
+  "FFlagShaderLightingRefactor": "False",
+  "FFlagRenderFixGrassPrepass": "False",
+  "FFlagAlwaysShowVRToggleV3": "False",
+  "FFlagRenderNoLowFrmBloom": "False",
+  "FFlagShoeSkipRenderMesh": "False",
+  "FFlagAddHapticsToggle": "False",
+  "FFlagDebugSSAOForce": "False",
+  "FFlagVoiceBetaBadge": "False",
+  "FFlagAddDMLogging": "False",
+  "FFlagFRMRefactor": "False",
+  "DFIntContentProviderPreloadHangTelemetryHundredthsPercentage": "0",
+  "DFIntTeleportClientAssetPreloadingHundredthsPercentage2": "100000",
+  "DFIntTeleportClientAssetPreloadingHundredthsPercentage": "100000",
+  "DFIntMemoryUtilityCurveBaseHundrethsPercent": "10000",
+  "DFIntTrackCountryRegionAPIHundredthsPercent": "10000",
+  "DFIntHACDPointSampleDistApartTenths": "2147483647",
+  "DFIntAnimationLodFacsVisibilityDenominator": "0",
+  "DFIntCSGLevelOfDetailSwitchingDistanceL12": "0",
+  "DFIntCSGLevelOfDetailSwitchingDistanceL23": "0",
+  "DFIntCSGLevelOfDetailSwitchingDistanceL34": "0",
+  "DFIntMemoryUtilityCurveTotalMemoryReserve": "0",
+  "DFIntAudioOcclusionMaxNumQueriesPerFrame": "6",
+  "DFIntAudioOcclusionMaxPiercedPrimitives": "6",
+  "DFIntOcclusionFresnelConsensusNumerator": "2",
+  "DFIntMemoryUtilityCurveNumSegments": "100",
+  "DFIntNumAssetsMaxToPreload": "2147483647",
+  "DFIntSoundVelocitySmoothingNewRatio": "2",
+  "DFIntSoundVelocitySmoothingOldRatio": "5",
+  "DFIntOcclusionShelfScalarNumerator": "2",
+  "DFIntOcclusionGainScalarNumerator": "2",
+  "DFIntPreloadAvatarAssets": "2147483647",
+  "DFIntAnimationLodFacsDistanceMax": "0",
+  "DFIntAnimationLodFacsDistanceMin": "0",
+  "DFIntAudioOcclusionUpdateRateMs": "2",
+  "DFIntOcclusionFresnelEllipsoids": "6",
+  "DFIntAssetPreloading": "2147483647",
+  "DFIntCanHideGuiGroupId": "32380007",
+  "DFIntTaskSchedulerTargetFps": "240",
+  "DFIntTextureQualityOverride": "0",
+  "DFIntS2PhysicsSenderRate": "128",
+  "DFIntMaxFrameBufferSize": "4",
+  "DFIntCharacterLoadTime": "1",
+  "FIntPreferredTextSizeSettingBetaFeatureRolloutPercent": "100",
+  "FIntV1MenuLanguageSelectionFeaturePerMillageRollout": "0",
+  "FIntFullscreenTitleBarTriggerDelayMillis": "3600000",
+  "FIntRenderMaxShadowAtlasUsageBeforeDownscale": "0",
+  "FIntDebugFRMOptionalMSAALevelOverride": "0",
+  "FIntGrassMovementReducedMotionFactor": "0"
 }
 
 ---\\ 500 fps 
@@ -2179,12 +2841,10 @@ const EMBEDDED_FILES = {
   "DFFlagSkipValidateReceivedJoinData": "True",
   "DFIntTaskSchedulerTargetFps": "120"
 }`
-  },
-  
-  strongest_today: {
-    filename: 'The Strongest Of Today.json',
-    data: `{
-  "{
+            },
+            strongest_today: {
+                filename: 'The Strongest Of Today.json',
+                data: `{
   "FFlagHandleAltEnterFullscreenManually": "False",
   "FLogNetwork": "4",
   "DFIntTaskSchedulerTargetFps": "10000",
@@ -2306,8 +2966,8 @@ const EMBEDDED_FILES = {
   "FIntTerrainOTAMaxTextureSize": "256",
   "FIntUITextureMaxRenderTextureSize": "512",
   "DFIntTextureCompositorActiveJobs": "1",
-  "FStringPartTexturePackTablePre2022": "{\"foil\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[255,255,255,255]},\"brick\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[204,201,200,232]},\"cobblestone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[212,200,187,250]},\"concrete\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[208,208,208,255]},\"diamondplate\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[170,170,170,255]},\"fabric\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[105,104,102,244]},\"glass\":{\"ids\":[\"rbxassetid://7547304948\",\"rbxassetid://7546645118\"],\"color\":[254,254,254,7]},\"granite\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[113,113,113,255]},\"grass\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[165,165,159,255]},\"ice\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[255,255,255,255]},\"marble\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[199,199,199,255]},\"metal\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[199,199,199,255]},\"pebble\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[208,208,208,255]},\"corrodedmetal\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[159,119,95,200]},\"sand\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[220,220,220,255]},\"slate\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[193,193,193,255]},\"wood\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[227,227,227,255]},\"woodplanks\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[212,209,203,255]},\"asphalt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[123,123,123,234]},\"basalt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[154,154,153,238]},\"crackedlava\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[74,78,80,156]},\"glacier\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[226,229,229,243]},\"ground\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[114,114,112,240]},\"leafygrass\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[121,117,113,234]},\"limestone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[235,234,230,250]},\"mud\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[130,130,130,252]},\"pavement\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[142,142,144,236]},\"rock\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[154,154,154,248]},\"salt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[220,220,221,255]},\"sandstone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[174,171,169,246]},\"snow\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[218,218,218,255]}}",
-  "FStringPartTexturePackTable2022": "{\"foil\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[238,238,238,255]},\"asphalt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[227,227,228,234]},\"basalt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[160,160,158,238]},\"brick\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[229,214,205,227]},\"cobblestone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[218,219,219,243]},\"concrete\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[225,225,224,255]},\"crackedlava\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[76,79,81,156]},\"diamondplate\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[210,210,210,255]},\"fabric\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[221,221,221,255]},\"glacier\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[225,229,229,243]},\"glass\":{\"ids\":[\"rbxassetid://9873284556\",\"rbxassetid://9438453972\"],\"color\":[254,254,254,7]},\"granite\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[210,206,200,255]},\"grass\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[196,196,189,241]},\"ground\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[165,165,160,240]},\"ice\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[235,239,241,248]},\"leafygrass\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[182,178,175,234]},\"limestone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[250,248,243,250]},\"marble\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[181,183,193,249]},\"metal\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[226,226,226,255]},\"mud\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[193,192,193,252]},\"pavement\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[218,218,219,236]},\"pebble\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[204,203,201,234]},\"plastic\":{\"ids\":[\"\",\"rbxassetid://0\"],\"color\":[255,255,255,255]},\"rock\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[211,211,210,248]},\"corrodedmetal\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[206,177,163,180]},\"salt\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[249,249,249,255]},\"sand\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[218,216,210,240]},\"sandstone\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[241,234,230,246]},\"slate\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[235,234,235,254]},\"snow\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[239,240,240,255]},\"wood\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[217,209,208,255]},\"woodplanks\":{\"ids\":[\"rbxassetid://0\",\"rbxassetid://0\"],\"color\":[207,208,206,254]}}",
+  "FStringPartTexturePackTablePre2022": "{\\"foil\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[255,255,255,255]},\\"brick\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[204,201,200,232]},\\"cobblestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[212,200,187,250]},\\"concrete\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[208,208,208,255]},\\"diamondplate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[170,170,170,255]},\\"fabric\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[105,104,102,244]},\\"glass\\":{\\"ids\\":[\\"rbxassetid://7547304948\\",\\"rbxassetid://7546645118\\"],\\"color\\":[254,254,254,7]},\\"granite\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[113,113,113,255]},\\"grass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[165,165,159,255]},\\"ice\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[255,255,255,255]},\\"marble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[199,199,199,255]},\\"metal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[199,199,199,255]},\\"pebble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[208,208,208,255]},\\"corrodedmetal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[159,119,95,200]},\\"sand\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[220,220,220,255]},\\"slate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[193,193,193,255]},\\"wood\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[227,227,227,255]},\\"woodplanks\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[212,209,203,255]},\\"asphalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[123,123,123,234]},\\"basalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[154,154,153,238]},\\"crackedlava\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[74,78,80,156]},\\"glacier\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[226,229,229,243]},\\"ground\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[114,114,112,240]},\\"leafygrass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[121,117,113,234]},\\"limestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[235,234,230,250]},\\"mud\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[130,130,130,252]},\\"pavement\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[142,142,144,236]},\\"rock\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[154,154,154,248]},\\"salt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[220,220,221,255]},\\"sandstone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[174,171,169,246]},\\"snow\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,218,218,255]}}",
+  "FStringPartTexturePackTable2022": "{\\"foil\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[238,238,238,255]},\\"asphalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[227,227,228,234]},\\"basalt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[160,160,158,238]},\\"brick\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[229,214,205,227]},\\"cobblestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,219,219,243]},\\"concrete\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[225,225,224,255]},\\"crackedlava\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[76,79,81,156]},\\"diamondplate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[210,210,210,255]},\\"fabric\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[221,221,221,255]},\\"glacier\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[225,229,229,243]},\\"glass\\":{\\"ids\\":[\\"rbxassetid://9873284556\\",\\"rbxassetid://9438453972\\"],\\"color\\":[254,254,254,7]},\\"granite\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[210,206,200,255]},\\"grass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[196,196,189,241]},\\"ground\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[165,165,160,240]},\\"ice\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[235,239,241,248]},\\"leafygrass\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[182,178,175,234]},\\"limestone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[250,248,243,250]},\\"marble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[181,183,193,249]},\\"metal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[226,226,226,255]},\\"mud\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[193,192,193,252]},\\"pavement\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,218,219,236]},\\"pebble\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[204,203,201,234]},\\"plastic\\":{\\"ids\\":[\\"\\",\\"rbxassetid://0\\"],\\"color\\":[255,255,255,255]},\\"rock\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[211,211,210,248]},\\"corrodedmetal\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[206,177,163,180]},\\"salt\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[249,249,249,255]},\\"sand\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[218,216,210,240]},\\"sandstone\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[241,234,230,246]},\\"slate\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[235,234,235,254]},\\"snow\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[239,240,240,255]},\\"wood\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[217,209,208,255]},\\"woodplanks\\":{\\"ids\\":[\\"rbxassetid://0\\",\\"rbxassetid://0\\"],\\"color\\":[207,208,206,254]}}",
   "_SECTION_RAKNET": "=== RAKNET ===",
   "DFIntRakNetSlidingWindowMinThreshold": "64",
   "DFIntRakNetNakResendDelayRttPercent": "10",
@@ -2357,7 +3017,6 @@ const EMBEDDED_FILES = {
   "FIntDefaultMeshCacheSizeMB": "512",
   "FIntMeshContentProviderForceCacheSize": "536870912",
   "FIntEmotesAnimationsPerPlayerCacheSize": "16777216",
-  
   "___BLADE_BALL_AND_OTHERS___": "=== TỐI ƯU HÓA BỔ SUNG ===",
   "DFIntAssetPreloading": "2147483647",
   "DFIntCharacterLoadTime": "1",
@@ -2583,157 +3242,150 @@ const EMBEDDED_FILES = {
   "DFIntWaitOnRecvFromLoopEndedMS": "100",
   "DFIntWaitOnUpdateNetworkLoopEndedMS": "100",
   "DFIntCodecMaxIncomingPackets": "100"
-}": true
 }`
-};
+            }
+        };
 
-/* ══════════════════════════════════════════════════════════════════════
-   ENGINE — no need to edit below
-══════════════════════════════════════════════════════════════════════ */
-const ddState = {};
+        /* ══════════════════════════════════════════════════════════════════════
+           HÀM JAVASCRIPT XỬ LÝ SỰ KIỆN 
+        ══════════════════════════════════════════════════════════════════════ */
+        let currentSel = {
+            scripts: null,
+            fflags: null,
+            music: null
+        };
 
-Object.keys(DROPDOWNS).forEach(id => {
-  ddState[id] = { open:false, sel:-1, filter:'' };
-  ddRender(id);
-});
+        function renderDropdown(id, filterText = '') {
+            const container = document.getElementById(`dd-${id}-opts`);
+            if (!container) return;
+            container.innerHTML = '';
 
-function ddRender(id) {
-  const s = ddState[id], items = DROPDOWNS[id].items;
-  const el = document.getElementById('dd-'+id+'-opts');
-  el.innerHTML = '';
-  items.forEach((v,i) => {
-    if (s.filter && !v.name.toLowerCase().includes(s.filter) && !(v.desc||'').toLowerCase().includes(s.filter)) return;
-    const d = document.createElement('div');
-    d.className = 'dd-opt'+(i===s.sel?' sel':'');
-    d.innerHTML = `<div class="dd-opt-icon">${v.icon}</div>
-      <div class="dd-opt-info">
-        <div class="dd-opt-name">${v.name}</div>
-        <div class="dd-opt-desc">${v.desc||''}</div>
-      </div>
-      <span class="badge ${v.badgeClass}">${v.badge}</span>
-      ${i===s.sel?'<span class="dd-check">✓</span>':''}`;
-    d.onclick = () => ddSelect(id, i);
-    el.appendChild(d);
-  });
-}
+            const items = DROPDOWNS[id].items;
+            items.forEach((item, index) => {
+                if (filterText && !item.name.toLowerCase().includes(filterText) && !(item.desc && item.desc.toLowerCase().includes(filterText))) return;
 
-function ddSelect(id, i) {
-  ddState[id].sel = i;
-  const v = DROPDOWNS[id].items[i];
-  document.getElementById('dd-'+id+'-si').textContent = v.icon;
-  document.getElementById('dd-'+id+'-sn').textContent = v.name;
-  const badge = document.getElementById('dd-'+id+'-sb');
-  badge.textContent = v.badge;
-  badge.className = 'badge '+v.badgeClass;
-  badge.style.display = '';
-  ddClose(id);
-  ddRender(id);
-}
+                const div = document.createElement('div');
+                div.className = 'dd-opt';
+                div.onclick = () => selectItem(id, index);
 
-function ddToggle(id) {
-  const s = ddState[id];
-  if (s.open) { ddClose(id); return; }
-  Object.keys(ddState).forEach(k => k!==id && ddClose(k));
-  s.open = true;
-  document.getElementById('dd-'+id+'-menu').classList.add('open');
-  document.getElementById('dd-'+id+'-trigger').classList.add('open');
-  document.getElementById('dd-'+id+'-arrow').classList.add('open');
-  const inp = document.querySelector('#dd-'+id+'-menu .dd-search input');
-  if (inp) { s.filter=''; inp.value=''; inp.focus(); }
-  ddRender(id);
-}
+                div.innerHTML = `
+                    <div class="dd-opt-icon">${item.icon}</div>
+                    <div class="dd-opt-info">
+                        <div class="dd-opt-name">${item.name}</div>
+                        <div class="dd-opt-desc">${item.desc}</div>
+                    </div>
+                    ${item.badge ? `<span class="badge ${item.badgeClass}">${item.badge}</span>` : ''}
+                `;
+                container.appendChild(div);
+            });
+        }
 
-function ddClose(id) {
-  ddState[id].open = false;
-  document.getElementById('dd-'+id+'-menu').classList.remove('open');
-  document.getElementById('dd-'+id+'-trigger').classList.remove('open');
-  document.getElementById('dd-'+id+'-arrow').classList.remove('open');
-}
+        function selectItem(id, index) {
+            const item = DROPDOWNS[id].items[index];
+            currentSel[id] = item;
 
-function ddFilter(id, v) {
-  ddState[id].filter = v.toLowerCase();
-  ddRender(id);
-}
+            document.getElementById(`dd-${id}-si`).innerText = item.icon;
+            document.getElementById(`dd-${id}-sn`).innerText = item.name;
 
-function ddCopy(id) {
-  const s = ddState[id];
-  if (s.sel < 0) { showToast('Select a script first'); return; }
-  const v = DROPDOWNS[id].items[s.sel];
-  const text = v.script || v.url || '';
-  if (!text) { showToast('No script string for this entry'); return; }
-  navigator.clipboard.writeText(text).then(() => showToast('Copied to clipboard!')).catch(()=>showToast('Copy failed'));
-}
+            const badgeEl = document.getElementById(`dd-${id}-sb`);
+            if (item.badge) {
+                badgeEl.style.display = 'inline-block';
+                badgeEl.className = `badge ${item.badgeClass}`;
+                badgeEl.innerText = item.badge;
+            } else {
+                badgeEl.style.display = 'none';
+            }
 
-function ddOpenLink(id) {
-  const s = ddState[id];
-  if (s.sel < 0) { showToast('Select an item first'); return; }
-  const v = DROPDOWNS[id].items[s.sel];
-  if (v.url) window.open(v.url, '_blank');
-}
+            ddToggle(id);
+        }
 
-function ddDownloadFile(id) {
-  const s = ddState[id];
-  if (s.sel < 0) { showToast('Select a file first'); return; }
-  const v = DROPDOWNS[id].items[s.sel];
-  if (!v.key) { showToast('No embedded data for this file'); return; }
-  triggerDownload(v.key);
-}
+        function ddToggle(id) {
+            document.getElementById(`dd-${id}-trigger`).classList.toggle('open');
+            document.getElementById(`dd-${id}-menu`).classList.toggle('open');
+            document.getElementById(`dd-${id}-arrow`).classList.toggle('open');
+        }
 
-/* External link download card */
-function dlGo(btn, url) {
-  animBar(btn);
-  window.open(url, '_blank');
-}
+        function ddFilter(id, val) {
+            renderDropdown(id, val.toLowerCase());
+        }
 
-/* Embedded file download card */
-function dlEmbed(btn, key) {
-  if (!EMBEDDED_FILES[key]) { showToast('File not embedded yet — paste content in EMBEDDED_FILES'); return; }
-  animBar(btn);
-  triggerDownload(key);
-}
+        function ddCopy(id) {
+            const item = currentSel[id];
+            if (!item || !item.script) return showToast('Vui lòng chọn một script có hỗ trợ copy!');
+            copyToClipboard(item.script, 'Đã copy loadstring!');
+        }
 
-function triggerDownload(key) {
-  const f = EMBEDDED_FILES[key];
-  if (!f) return;
-  const blob = new Blob([f.data], { type: 'application/octet-stream' });
-  const a = document.createElement('a');
-  a.href = URL.createObjectURL(blob);
-  a.download = f.filename;
-  document.body.appendChild(a);
-  a.click();
-  document.body.removeChild(a);
-  URL.revokeObjectURL(a.href);
-  showToast('Downloading ' + f.filename);
-}
+        function ddOpenLink(id) {
+            const item = currentSel[id];
+            if (!item || !item.url) return showToast('Vui lòng chọn một mục trước!');
+            window.open(item.url, '_blank');
+        }
 
-function animBar(btn) {
-  const fill = btn.closest('.dl-card').querySelector('.dl-fill');
-  fill.style.width = '0';
-  setTimeout(() => fill.style.width = '100%', 40);
-}
+        function ddDownloadFile(id) {
+            const item = currentSel[id];
+            if (!item || !item.key) return showToast('Vui lòng chọn một fflag trước!');
+            const fileData = EMBEDDED_FILES[item.key];
+            if (!fileData) return showToast('Không tìm thấy dữ liệu file!');
+            downloadString(fileData.data, fileData.filename || item.filename);
+        }
 
-function copyText(text, el, msg) {
-  navigator.clipboard.writeText(text).then(() => {
-    const orig = el.textContent;
-    el.textContent = msg;
-    setTimeout(() => el.textContent = orig, 1400);
-  });
-}
+        function copyText(text, el, msg) {
+            copyToClipboard(text, msg);
+        }
 
-function showToast(msg) {
-  const t = document.getElementById('toast');
-  t.textContent = msg;
-  t.classList.add('show');
-  clearTimeout(t._t);
-  t._t = setTimeout(() => t.classList.remove('show'), 2200);
-}
+        function copyToClipboard(text, msg) {
+            navigator.clipboard.writeText(text).then(() => showToast(msg)).catch(() => showToast('Lỗi khi copy!'));
+        }
 
-document.addEventListener('click', e => {
-  Object.keys(ddState).forEach(id => {
-    if (ddState[id].open && !e.target.closest('#dd-'+id+'-trigger') && !e.target.closest('#dd-'+id+'-menu'))
-      ddClose(id);
-  });
-});
-</script>
+        function showToast(msg) {
+            const t = document.getElementById('toast');
+            t.innerText = msg;
+            t.classList.add('show');
+            setTimeout(() => t.classList.remove('show'), 3000);
+        }
+
+        function downloadString(text, filename) {
+            const blob = new Blob([text], {
+                type: 'text/plain'
+            });
+            const a = document.createElement('a');
+            a.href = URL.createObjectURL(blob);
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+        }
+
+        function dlGo(btn, url) {
+            const fill = btn.parentElement.querySelector('.dl-fill');
+            if (fill) fill.style.width = '100%';
+            setTimeout(() => {
+                window.open(url, '_blank');
+                if (fill) fill.style.width = '0';
+            }, 500);
+        }
+
+        function dlEmbed(btn, key) {
+            const fill = btn.parentElement.querySelector('.dl-fill');
+            if (fill) fill.style.width = '100%';
+            setTimeout(() => {
+                const fileData = EMBEDDED_FILES[key];
+                if (fileData) {
+                    downloadString(fileData.data, fileData.filename);
+                    showToast('Đã tải xuống ' + fileData.filename);
+                } else {
+                    showToast('Không tìm thấy file!');
+                }
+                if (fill) fill.style.width = '0';
+            }, 600);
+        }
+
+        // Khởi tạo giao diện dropdown khi trang vừa tải xong
+        window.onload = () => {
+            renderDropdown('scripts');
+            renderDropdown('fflags');
+            renderDropdown('music');
+        };
+    </script>
 </body>
 </html>
