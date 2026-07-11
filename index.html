@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
+    <meta charset="UT-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Purium - Script Execution Platform</title>
     <style>
@@ -871,7 +871,7 @@
                     <span class="dl-tag">.txt</span>
                     <span class="dl-tag">Minecraft</span>
                 </div>
-                <button class="dl-btn blu" onclick="dlGo(this,'https://www.dropbox.com/scl/fi/betbjt1ig3ydf4umzt552/guide-pvp.text?rlkey=lvxemw59d8p3cpa9w224uy7k4&st=m2p8ujlc&dl=0')">📥 Download Guide</button>
+                <button class="dl-btn blu" onclick="dlGo(this,'https://www.dropbox.com/scl/fi/betbjt1ig3ydf4umzt552/guide-pvp.text?rlkey=lvxemw59d8p3cpa9w224uy7k4&st=m2p8ujlc&dl=0')">📥 Downloa[...]
                 <div class="dl-prog">
                     <div class="dl-bar">
                         <div class="dl-fill"></div>
@@ -1023,157 +1023,6 @@
             <div class="footer-copy">© 2024 Purium. All rights reserved.</div>
         </div>
     </div>
-
-    <div class="toast" id="toast"></div>
-
-    <script>
-        const ddData = {
-            scripts: [
-                { icon: '📜', name: 'Main Script', desc: 'Full v0.0.0.3', badge: 'Stable', url: 'https://raw.githubusercontent.com/PuriumHuB/Purium/refs/heads/main/Secret%20Security' },
-                { icon: '⚔️', name: 'PvP Module', desc: 'Combat extras', badge: 'Beta', url: 'https://example.com/pvp' },
-                { icon: '🎵', name: 'Music Pack', desc: 'Audio utils', badge: 'New', url: 'https://example.com/music' },
-            ],
-            fflags: [
-                { icon: '⚡', name: 'FPS Boost', desc: 'Quick performance', file: 'fflag' },
-                { icon: '🔧', name: 'Custom 1', desc: 'Tuned settings', file: 'custom1' },
-                { icon: '🐛', name: 'Custom 2', desc: 'Exploit pack', file: 'custom2' },
-                { icon: '💥', name: 'Fusion', desc: 'Combined fflags', file: 'fusion' },
-            ],
-            music: [
-                { icon: '🎵', name: 'Giao hưởng phùng', desc: 'Classic vibe', url: 'https://youtu.be/ohz9EXtmVY8?si=0ZGpsVETDS4n3AeJ' },
-                { icon: '🎶', name: 'Playlist Mix', desc: 'Curated tracks', url: 'https://youtube.com' },
-            ]
-        };
-
-        function ddToggle(cat) {
-            const trigger = document.getElementById(`dd-${cat}-trigger`);
-            const menu = document.getElementById(`dd-${cat}-menu`);
-            const arrow = document.getElementById(`dd-${cat}-arrow`);
-            const opts = document.getElementById(`dd-${cat}-opts`);
-
-            const isOpen = menu.classList.toggle('open');
-            trigger.classList.toggle('open', isOpen);
-            arrow.classList.toggle('open', isOpen);
-
-            if (isOpen && opts.children.length === 0) {
-                ddRender(cat);
-            }
-        }
-
-        function ddRender(cat) {
-            const opts = document.getElementById(`dd-${cat}-opts`);
-            const data = ddData[cat];
-            opts.innerHTML = '';
-
-            data.forEach((item, idx) => {
-                const opt = document.createElement('div');
-                opt.className = 'dd-opt';
-                opt.innerHTML = `
-                    <span class="dd-opt-icon">${item.icon}</span>
-                    <div class="dd-opt-info">
-                        <div class="dd-opt-name">${item.name}</div>
-                        <div class="dd-opt-desc">${item.desc}</div>
-                    </div>
-                    ${item.badge ? `<span class="badge b-${item.badge.toLowerCase()}">${item.badge}</span>` : ''}
-                    <span class="dd-check">✓</span>
-                `;
-
-                opt.addEventListener('click', () => {
-                    document.querySelectorAll(`#dd-${cat}-opts .dd-opt`).forEach(o => o.classList.remove('sel'));
-                    opt.classList.add('sel');
-                    document.getElementById(`dd-${cat}-si`).textContent = item.icon;
-                    document.getElementById(`dd-${cat}-sn`).textContent = item.name;
-                    if (item.badge) {
-                        const badge = document.getElementById(`dd-${cat}-sb`);
-                        badge.textContent = item.badge;
-                        badge.className = `badge b-${item.badge.toLowerCase()}`;
-                        badge.style.display = 'inline-block';
-                    }
-                });
-
-                opts.appendChild(opt);
-            });
-        }
-
-        function ddFilter(cat, val) {
-            const opts = document.querySelectorAll(`#dd-${cat}-opts .dd-opt`);
-            opts.forEach(opt => {
-                const text = opt.textContent.toLowerCase();
-                opt.style.display = text.includes(val.toLowerCase()) ? 'flex' : 'none';
-            });
-        }
-
-        function ddCopy(cat) {
-            const sel = document.querySelector(`#dd-${cat}-opts .dd-opt.sel`);
-            if (sel && ddData[cat][Array.from(document.querySelectorAll(`#dd-${cat}-opts .dd-opt`)).indexOf(sel)].url) {
-                const url = ddData[cat][Array.from(document.querySelectorAll(`#dd-${cat}-opts .dd-opt`)).indexOf(sel)].url;
-                navigator.clipboard.writeText(`loadstring(game:HttpGet('${url}'))()`);
-                showToast('📋 Copied to clipboard!');
-            }
-        }
-
-        function ddOpenLink(cat) {
-            const sel = document.querySelector(`#dd-${cat}-opts .dd-opt.sel`);
-            if (sel) {
-                const idx = Array.from(document.querySelectorAll(`#dd-${cat}-opts .dd-opt`)).indexOf(sel);
-                const url = ddData[cat][idx].url;
-                if (url) window.open(url, '_blank');
-            }
-        }
-
-        function ddDownloadFile(cat) {
-            const sel = document.querySelector(`#dd-${cat}-opts .dd-opt.sel`);
-            if (sel) {
-                const idx = Array.from(document.querySelectorAll(`#dd-${cat}-opts .dd-opt`)).indexOf(sel);
-                const file = ddData[cat][idx].file;
-                dlEmbed(null, file);
-            }
-        }
-
-        const fflagContent = {
-            fflag: { name: 'fflag.json', data: {} },
-            custom1: { name: 'BestFFlags.json', data: {} },
-            custom2: { name: 'CustomFFLAGS-Copy.json', data: {} },
-            fusion: { name: 'broken.json', data: {} },
-            list: { name: 'list.txt', data: 'FFlag Reference List\n\n' }
-        };
-
-        function dlEmbed(btn, type) {
-            const file = fflagContent[type];
-            const blob = new Blob([JSON.stringify(file.data, null, 2)], { type: 'application/json' });
-            const url = URL.createObjectURL(blob);
-            const a = document.createElement('a');
-            a.href = url;
-            a.download = file.name;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-            URL.revokeObjectURL(url);
-            showToast('📥 Download started!');
-        }
-
-        function dlGo(btn, url) {
-            if (btn) {
-                const fill = btn.nextElementSibling.querySelector('.dl-fill');
-                if (fill) {
-                    fill.style.width = '100%';
-                    setTimeout(() => fill.style.width = '0', 1500);
-                }
-            }
-            window.open(url, '_blank');
-            showToast('🔗 Opening link...');
-        }
-
-        function showToast(msg) {
-            const toast = document.getElementById('toast');
-            toast.textContent = msg;
-            toast.classList.add('show');
-            setTimeout(() => toast.classList.remove('show'), 2000);
-        }
-
-        // Load initial dropdown data
-        ddRender('music');
-    </script>
 
 </body>
 </html>
